@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index">
     <div class="head">
     <header>
       <div>
@@ -14,80 +14,69 @@
           <span class="demonstration">查询</span>
           <el-date-picker
             v-model="value1"
+            :change=dateChange()
             type="date"
             placeholder="选择日期">
           </el-date-picker>
-          <el-select v-model="value" placeholder="赛事筛选">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
         </div>
       </div>
     </div>
+      <div class="switchs">
+        <el-switch
+          v-model="value2"
+          inactive-color="#efefef"
+          active-text="赛事赛程"
+          inactive-text="试试赛程">
+        </el-switch>
+      </div>
     <div class="tab">
       <el-table
         :data="tableData"
         style="width: 100%;border-radius: 5px; border-bottom: solid 1px #efefef;">
         <el-table-column
-          prop="id"
-          label="序号"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="competition"
+          prop="competitionName"
           label="赛事"
           width="180">
         </el-table-column>
         <el-table-column
-          prop="date"
+          prop="matchTime"
           label="时间"
           width="180">
         </el-table-column>
         <el-table-column
-          prop="status"
-          label="状态"
+          prop="zteamName"
+          label="主场名称"
           width="180">
         </el-table-column>
         <el-table-column
-          prop="homeranking"
-          label="主排名">
-        </el-table-column>
-        <el-table-column
-          prop="homecourt"
-          label="主场">
+          prop="kteamName"
+          label="客场名称"
+          width="180">
         </el-table-column>
         <el-table-column
           prop="score"
           label="比分">
         </el-table-column>
         <el-table-column
-          prop="visitingfield"
-          label="客场">
+          prop="zrank"
+          label="主队排名">
         </el-table-column>
         <el-table-column
-          prop="homeranking"
-          label="客排名">
+          prop="krank"
+          label="客队排名">
         </el-table-column>
         <el-table-column
           prop="victory"
           label="胜负">
         </el-table-column>
-        <el-table-column
-          prop="live"
-          label="直播">
-        </el-table-column>
       </el-table>
-      <div class="top">
-        <span ><em><img src="../assets/wenz.png" title="文字直播" alt="文字直播"></em><i>文字直播</i></span>
-        <span><em><img src="../assets/black.png" class="ball" title="进球" alt="进球"></em><i>进球</i></span>
-        <span><em><img src="../assets/red.png" class="ball" title="点球" alt="点球"></em><i>点球</i></span>
-        <span><em><img src="../assets/blue.png" class="ball" title="乌龙球" alt="乌龙球"></em><i>乌龙球</i></span>
-        <span><em><img src="../assets/redcard.png" title="红牌" alt="红牌"></em><i>红牌</i></span>
-      </div>
+      <!--<div class="top">-->
+        <!--<span ><em><img src="../assets/wenz.png" title="文字直播" alt="文字直播"></em><i>文字直播</i></span>-->
+        <!--<span><em><img src="../assets/black.png" class="ball" title="进球" alt="进球"></em><i>进球</i></span>-->
+        <!--<span><em><img src="../assets/red.png" class="ball" title="点球" alt="点球"></em><i>点球</i></span>-->
+        <!--<span><em><img src="../assets/blue.png" class="ball" title="乌龙球" alt="乌龙球"></em><i>乌龙球</i></span>-->
+        <!--<span><em><img src="../assets/redcard.png" title="红牌" alt="红牌"></em><i>红牌</i></span>-->
+      <!--</div>-->
     </div>
     </div>
     <div>
@@ -115,176 +104,48 @@
           value: '选项3',
           label: '蚵仔煎'
         }],
+        value2:false,
         tableData: [{
-          id: '1',
-          competition: '中超',
-          date: '2016-05-02',
-          status: '完',
-          homeranking: '1',
-          homecourt: '南昌队',
-          score: '5-6',
-          visitingfield: '赣州',
-          homeranking: '8',
-          victory: '完',
-          直播: '直播中',
-        }, {
-          id: '2',
-          competition: '中超',
-          date: '2016-05-02',
-          status: '完',
-          homeranking: '1',
-          homecourt: '南昌队',
-          score: '5-6',
-          visitingfield: '赣州',
-          homeranking: '8',
-          victory: '完',
-          直播: '直播中',
-        }, {
-          id: '2',
-          competition: '中超',
-          date: '2016-05-02',
-          status: '完',
-          homeranking: '1',
-          homecourt: '南昌队',
-          score: '5-6',
-          visitingfield: '赣州',
-          homeranking: '8',
-          victory: '完',
-          直播: '直播中',
-        }, {
-          id: '2',
-          competition: '中超',
-          date: '2016-05-02',
-          status: '完',
-          homeranking: '1',
-          homecourt: '南昌队',
-          score: '5-6',
-          visitingfield: '赣州',
-          homeranking: '8',
-          victory: '完',
-          直播: '直播中',
-        }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          , {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }, {
-            id: '2',
-            competition: '中超',
-            date: '2016-05-02',
-            status: '完',
-            homeranking: '1',
-            homecourt: '南昌队',
-            score: '5-6',
-            visitingfield: '赣州',
-            homeranking: '8',
-            victory: '完',
-            直播: '直播中',
-          }
-          ]
+          competitionName: '中超',
+          matchTime: '2016-05-02',
+          zteamName: '主场名称',
+          kteamName: '客场名称',
+          score:'比分',
+          zrank: '主队排名',
+          krank: '客队排名',
+          visitingfield: '胜负',
+        }]
       }
     },
     mounted(){
       this.get()
     },
     methods: {
+      dateChange(){
+console.log('sfa')
+      },
+      getdate() {
+  let now = new Date(),
+    y = now.getFullYear(),
+    m = now.getMonth() + 1,
+    d = now.getDate();
+  return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+},
       get() {
         this.axios.get('api/quartz/soccer/findMatchByParams', {
           params: {
           //"competitionId": "166",//赛事ID，多个以逗号分隔  可空
-          // "complate": 1, //为1时，查完场  可空
+           // "complate": 1, //为1时，查完场  可空
             "defaultDate": "2020-06-26", //查该日期以后的比赛 可空}
              //"queryDate":"2020-06-27"  //查该日期的比赛 可空
           }
-        })
-          .then(function (response) {
-            console.log(response);
+        }).then((res)=> {
+            res.data.msg.forEach((item)=>{
+            item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
+            item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
+             item.matchTime = this.getdate(item.matchTime)
+            })
+            this.tableData=res.data.msg
           })
           .catch(function (error) {
             console.log(error);
@@ -297,6 +158,7 @@
 <style scoped>
   .head{
     background: rgb(0,0,0,0.1);
+    border-radius: 10px;
     z-index: 2;
     position: absolute;
     width: 97%;
@@ -306,6 +168,16 @@
     right: 0;
     top: 100px;
     padding-top: 100px;
+  }
+  .switchs{
+    display: flex;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    width: 222px;
+    height: 51px;
+    margin: 0 auto;
+    margin-top: 48px;
+    align-items: center;
   }
 .images{
   width: 100%;
@@ -355,12 +227,28 @@
     align-items: center;
     margin-right: 30px;
   }
+  .demonstration{
+    color: #ffffff;
+    font-weight: 600;
+  }
+  td{
+    text-align: center;
+  }
 </style>
 <style>
-  .el-table th, .el-table tr {
+  .index{}
+  .index  .el-table th, .el-table tr {
     background-color: rgba(0,0,0,0);
+    text-align: center;
   }
-  .has-gutter:first-child{
+  .index  .has-gutter:first-child{
     border-bottom: solid  4px #e7e7e7;
+    text-align: center;
+  }
+  .index  .el-table_1_column_1  {
+    text-align: center;
+  }
+  .index .cell{
+    text-align: center;
   }
 </style>
