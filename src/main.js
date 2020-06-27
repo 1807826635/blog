@@ -8,6 +8,9 @@ import VueAxios from 'vue-axios'
 import { Button, Field, Col, Row } from 'vant'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+Vue.prototype.HOST = '/api'
+
+axios.defaults.headers.post['Content-type'] = 'application/json'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(Button).use(Field).use(Col).use(Row)
