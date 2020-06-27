@@ -299,9 +299,12 @@
     background: rgb(0,0,0,0.1);
     z-index: 2;
     position: absolute;
-    width: 100%;
+    width: 97%;
     height: 900px;
-    top: 0;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 100px;
     padding-top: 100px;
   }
 .images{
