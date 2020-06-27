@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="head">
     <header>
       <div>
         <a>
@@ -30,7 +31,7 @@
     <div class="tab">
       <el-table
         :data="tableData"
-        style="width: 100%">
+        style="width: 100%;border-radius: 5px; border-bottom: solid 1px #efefef;">
         <el-table-column
           prop="id"
           label="序号"
@@ -88,7 +89,10 @@
         <span><em><img src="../assets/redcard.png" title="红牌" alt="红牌"></em><i>红牌</i></span>
       </div>
     </div>
-
+    </div>
+    <div>
+      <img class="images" src="../assets/timg.png">
+    </div>
   </div>
 </template>
 <script>
@@ -135,7 +139,135 @@
           homeranking: '8',
           victory: '完',
           直播: '直播中',
-        }]
+        }, {
+          id: '2',
+          competition: '中超',
+          date: '2016-05-02',
+          status: '完',
+          homeranking: '1',
+          homecourt: '南昌队',
+          score: '5-6',
+          visitingfield: '赣州',
+          homeranking: '8',
+          victory: '完',
+          直播: '直播中',
+        }, {
+          id: '2',
+          competition: '中超',
+          date: '2016-05-02',
+          status: '完',
+          homeranking: '1',
+          homecourt: '南昌队',
+          score: '5-6',
+          visitingfield: '赣州',
+          homeranking: '8',
+          victory: '完',
+          直播: '直播中',
+        }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          , {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }, {
+            id: '2',
+            competition: '中超',
+            date: '2016-05-02',
+            status: '完',
+            homeranking: '1',
+            homecourt: '南昌队',
+            score: '5-6',
+            visitingfield: '赣州',
+            homeranking: '8',
+            victory: '完',
+            直播: '直播中',
+          }
+          ]
       }
     },
     mounted(){
@@ -163,19 +295,29 @@
   }
 </script>
 <style scoped>
-  .login {
-    margin-right: 10px;
+  .head{
+    background: rgb(0,0,0,0.1);
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 900px;
+    top: 0;
+    padding-top: 100px;
   }
+.images{
+  width: 100%;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*opacity: 0.4;*/
+  /*filter:alpha(opacity=40);*/
+}
 
-  .reg {
-  }
   .top{
     margin-top: 10px;
     display: flex;
     justify-content: center;
-  }
-  .van-row {
-    margin-top: 10px;
   }
 
   .ball {
@@ -191,17 +333,31 @@
   }
 
   .tab {
-    border: 1px solid #e7e7e7;
     padding-bottom: 10px;
     width: 90%;
     text-align: center;
     margin: 0 auto;
     margin-top: 40px;
+    border-top: none;
   }
+  .has-gutter{
+    border-bottom: 1px solid #e7e7e7;
+  }
+  tr{
+    border-bottom: 1px solid #e7e7e7;
+     }
   .top span{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 30px;
+  }
+</style>
+<style>
+  .el-table th, .el-table tr {
+    background-color: rgba(0,0,0,0);
+  }
+  .has-gutter:first-child{
+    border-bottom: solid  4px #e7e7e7;
   }
 </style>
