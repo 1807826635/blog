@@ -1,13 +1,12 @@
 <template>
-
-<div>
-  <header>
+<div class="titles">
+  <div>
     <div>
       <a class="logo">
         <img src="../assets/logo1.png"/>
       </a>
     </div>
-  </header>
+  </div>
   <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     <!-- <el-menu-item index="1">处理中心</el-menu-item> -->
     <el-submenu index="1">
@@ -26,7 +25,6 @@
         <el-menu-item index="2-4-3">选项3</el-menu-item>
       </el-submenu> -->
     </el-submenu>
-
     <!-- <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
   </el-menu>
 </div>
@@ -34,6 +32,7 @@
 <script>
 /* eslint-disable */
   export default {
+    name:'titles',
     data() {
       return {
         activeIndex: '1',
@@ -53,7 +52,10 @@
   display: flex;
   margin: 1%;
 }
-#app{
-  margin-top: 0;
-}
+  .titles{
+    position: relative;
+    z-index: 20;
+    top: 0;
+  }
+
 </style>
