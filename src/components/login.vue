@@ -1,13 +1,6 @@
 <template>
   <div class="index">
     <div class="head">
-    <header>
-      <div>
-        <a>
-          <img src="../assets/logo1.png"/>
-        </a>
-      </div>
-    </header>
     <div class="match_operate" style="height:auto;">
       <div class="float_l">
         <div class="block">
