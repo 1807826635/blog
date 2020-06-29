@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/login'
 import basketball from '@/components/basketball'
+import footballSchedule from '@/components/footballSchedule'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
-    path: '/home',
+  routes: [{ // 足球赛事赛程
+    path: '/',
     name: 'home',
     component: home
   },
@@ -15,6 +16,10 @@ export default new Router({
     path: '/basketball',
     name: 'basketball',
     component: basketball
+  }, { // 足球实时赛程
+    path: '/football/schedule',
+    name: 'footballSchedule',
+    component: footballSchedule
   }
   ]
 })

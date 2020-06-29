@@ -11,13 +11,13 @@
     <!-- <el-menu-item index="1">处理中心</el-menu-item> -->
     <el-submenu index="1">
           <template slot="title">即时比分</template>
-          <el-menu-item index="1-1">足球比分</el-menu-item>
-          <el-menu-item index="1-2">篮球比分</el-menu-item>
+          <el-menu-item index="1-1" @click="Goto('/')">足球比分</el-menu-item>
+          <el-menu-item index="1-2" @click="Goto('/basketball')">篮球比分</el-menu-item>
         </el-submenu>
     <el-submenu index="2">
       <template slot="title">赛程</template>
-      <el-menu-item index="2-1">篮球赛程</el-menu-item>
-      <el-menu-item index="2-2">足球赛程</el-menu-item>
+      <el-menu-item index="2-1" @click="Goto('/basketball')">篮球赛程</el-menu-item>
+      <el-menu-item index="2-2" @click="Goto('/football/schedule')">足球赛程</el-menu-item>
 <!--      <el-submenu index="2-4">
         <template slot="title">选项4</template>
         <el-menu-item index="2-4-1">选项1</el-menu-item>
@@ -40,6 +40,9 @@
       };
     },
     methods: {
+      Goto(value){
+        this.$router.push(value)
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       }

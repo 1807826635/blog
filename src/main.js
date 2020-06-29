@@ -8,6 +8,10 @@ import VueAxios from 'vue-axios'
 import { Button, Field, Col, Row } from 'vant'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import moment from 'moment'
+moment.locale('zh-cn')
+Vue.prototype.$moment = moment
+
 Vue.prototype.HOST = '/api'
 
 axios.defaults.headers.post['Content-type'] = 'application/json'

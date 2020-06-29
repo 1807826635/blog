@@ -3,46 +3,48 @@
     <div class="head">
       <div class="match_operate" style="height:auto;">
         <div class="float_l">
-          <div class="block">
-            <span class="demonstration">查询</span>
-            <el-date-picker
-              v-model="value1"
-              :change=dateChange()
-              type="date"
-              placeholder="选择日期">
-            </el-date-picker>
-          </div>
+          <!--<div class="block">-->
+            <!--<span class="demonstration">查询</span>-->
+            <!--<el-date-picker-->
+              <!--v-model="value1"-->
+              <!--:change=dateChange()-->
+              <!--type="date"-->
+              <!--placeholder="选择日期">-->
+            <!--</el-date-picker>-->
+          <!--</div>-->
         </div>
       </div>
-      <div class="switchs">
-      <el-switch
-      v-model="value2"
-      inactive-color="#efefef"
-      active-text="开启完场场"
-      inactive-text="开启半场">
-      </el-switch>
-      </div>
+      <!--<div class="switchs">-->
+        <!--&lt;!&ndash;<el-switch&ndash;&gt;-->
+          <!--&lt;!&ndash;v-model="value2"&ndash;&gt;-->
+          <!--&lt;!&ndash;inactive-color="#efefef"&ndash;&gt;-->
+          <!--&lt;!&ndash;active-text="开启完场场"&ndash;&gt;-->
+          <!--&lt;!&ndash;inactive-text="开启半场">&ndash;&gt;-->
+        <!--&lt;!&ndash;</el-switch>&ndash;&gt;-->
+    <!--</div>-->
       <div class="tab">
         <table class="el-table">
           <thead class="thead">
-            <th width="160">赛事</th>
-            <th width="160">时间</th>
-            <th width="160">主场名称</th>
-            <th width="160">比分</th>
-            <th width="160">客场名称</th>
-            <th width="160">半场</th>
-            <th width="160">备注</th>
+          <th width="160">赛事</th>
+          <th width="160">时间</th>
+          <th width="160">主场名称</th>
+          <!--<th width="160">比分</th>-->
+          <th width="160">客场名称</th>
+          <th width="160">半场</th>
+          <th width="160">备注</th>
+          <th width="160">动画直播</th>
           </thead>
           <template v-for="(item,index) in tableData" >
-          <tr class="tr" v-bind:key="index">
-            <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
-            <th width="160">{{item.updateTime}}</th>
-            <th width="160">{{item.zteamName}}</th>
-            <th width="160">{{item.score}}</th>
-            <th width="160">{{item.kteamName}}</th>
-            <th width="160">{{item.half}}</th>
-            <th width="160">{{item.note}}</th>
-          </tr>
+            <tr class="tr" v-bind:key="index">
+              <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
+              <th width="160">{{item.updateTime}}</th>
+              <th width="160">{{item.zteamName}}</th>
+              <!--<th width="160">{{item.score}}</th>-->
+              <th width="160">{{item.kteamName}}</th>
+              <th width="160">{{item.half}}</th>
+              <th width="160">{{item.note}}</th>
+              <th width="160">{{item.isVideo}}</th>
+            </tr>
           </template>
         </table>
       </div>
@@ -52,6 +54,7 @@
     </div>
   </div>
 </template>
+
 <script>
 /* eslint-disable */
   export default {
@@ -83,10 +86,16 @@
       },
       get() {
         let params={}
-         let time =(new Date()).getTime();
-        params.defaultDate=this.$moment(time).format('YYYY-MM-DD')
-        this.axios.get('api/quartz/soccer/findMatchByParams', {
+        let time =(new Date()).getTime();
+        params.defaultDate=this.$moment(time).subtract(1,'days')
+        this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {
           params:params
+          // params: {
+          //   //"competitionId": "166",//赛事ID，多个以逗号分隔  可空
+          //   // "complate": 1, //为1时，查完场  可空
+          //   "defaultDate": "2020-06-26", //查该日期以后的比赛 可空}
+          //   //"queryDate":"2020-06-27"  //查该日期的比赛 可空
+          // }
         }).then((res)=> {
           res.data.msg.forEach((item)=>{
             item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`

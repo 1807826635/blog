@@ -1,5 +1,5 @@
+/* eslint-disable */
 <template>
-
   <div class="tab">
   <div>
       <el-select v-model="value2" multiple placeholder="请选择">
@@ -37,11 +37,11 @@
           <th width="100" style="border-right:1px solid #c9e1f0">其他</th>
         </tr>
         <template v-for="cm in data">
-        <tr id="tr1_2178461" >
+        <tr id="tr1_2178461" v-bind:key="cm" >
           <td v-text="cm.competitionName"></td>
           <td v-text="cm.updateTime"></td>
           <td v-text="cm.status" id="td_as1_217846"></td>
-          <td id="td_as1_217846"></td>
+          <td id="td_as1_2178467"></td>
           <td id="td_as2_217846"></td>
           <td id="td_as3_217846"></td>
           <td id="td_as4_217846"></td>
@@ -52,11 +52,11 @@
           <td id="td_as9_217846"></td>
           <td id="td_as10_217846"></td>
         </tr>
-        <tr id="tr4_217846">
+        <tr id="tr4_217846" v-bind:key="cm">
           <td v-text="cm.competitionName"></td>
           <td v-text="cm.updateTime"></td>
           <td id="td1_as1_217846"></td>
-          <td id="td1_as1_217846"></td>
+          <td id="td1_as1_2178467"></td>
           <td id="td1_as2_217846"></td>
           <td id="td1_as3_217846"></td>
           <td id="td1_as4_217846"></td>
