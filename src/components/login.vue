@@ -30,16 +30,17 @@
         </el-switch>
       </div>
     <div class="tab">
-      <el-table
-        :data="tableData"
+        <el-table
+          :data="tableData"
+          border
         style="width: 100%;border-radius: 5px; border-bottom: solid 1px #efefef;">
         <el-table-column
           prop="competitionName"
           label="赛事"
-          width="180">
+          width="180" style>
         </el-table-column>
         <el-table-column
-          prop="matchTime"
+          prop="updateTime"
           label="时间"
           width="180">
         </el-table-column>
@@ -49,25 +50,26 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="kteamName"
-          label="客场名称"
-          width="180">
-        </el-table-column>
-        <el-table-column
           prop="score"
           label="比分">
         </el-table-column>
         <el-table-column
-          prop="zrank"
-          label="主队排名">
+          prop="kteamName"
+          label="客场名称"
+          width="180">
         </el-table-column>
+
         <el-table-column
+          prop="half"
+          label="半场">
+        </el-table-column>
+<!--        <el-table-column
           prop="krank"
           label="客队排名">
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column
-          prop="victory"
-          label="胜负">
+          prop="note"
+          label="备注">
         </el-table-column>
       </el-table>
       <!--<div class="top">-->
@@ -142,8 +144,11 @@ console.log('sfa')
         }).then((res)=> {
             res.data.msg.forEach((item)=>{
             item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
-            item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
-             item.matchTime = this.getdate(item.matchTime)
+            item.zteamName = `${item.zteamName}(${item.zrank})`
+            item.kteamName = `${item.kteamName}(${item.krank})`
+            // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
+             item.updateTime = this.getdate(item.updateTime)
+
             })
             this.tableData=res.data.msg
           })
@@ -151,9 +156,11 @@ console.log('sfa')
             console.log(error);
           });
       }
-
     }
   }
+
+
+
 </script>
 <style scoped>
   .head{

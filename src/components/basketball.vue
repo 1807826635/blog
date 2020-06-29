@@ -1,21 +1,13 @@
 <template>
-<!--  <div>
-    <div>
-       <el-tabs v-model="activeName" @tab-click="handleClick">
-         <el-tab-pane label="足球中心" name="first">足球中心</el-tab-pane>
-         <el-tab-pane label="篮球中心" name="second">篮球中心</el-tab-pane>
 
-       </el-tabs>
-     </div>
- -->
   <div class="tab">
   <div>
       <el-select v-model="value2" multiple placeholder="请选择">
         <el-option
           v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+          :key="item.id"
+          :label="item.shortName"
+          :value="item.id">
         </el-option>
       </el-select>
   </div>
@@ -30,8 +22,9 @@
     <div class="box">
       <tbody>
         <tr id="tr0_217846">
-          <th width="160">西班牙篮球联赛</th>
-          <th width="160"><span id="th_s_217846">未开场</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
+          <th width="160">赛事</th>
+          <th width="160"><span id="th_s_217846">时间</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
+          <th width="100">状态</th>
           <th width="77">一节</th>
           <th width="77">二节</th>
           <th width="77">三节</th>
@@ -41,11 +34,13 @@
           <th width="82">胜负</th>
           <th width="126">让分胜负</th>
           <th width="144">大小分</th>
-          <th width="200" style="border-right:1px solid #c9e1f0">其他</th>
+          <th width="100" style="border-right:1px solid #c9e1f0">其他</th>
         </tr>
-        <tr id="tr1_2178461">
-          <td>周日301</td>
-          <td>布尔戈斯</td>
+        <template v-for="cm in data">
+        <tr id="tr1_2178461" >
+          <td v-text="cm.competitionName"></td>
+          <td v-text="cm.updateTime"></td>
+          <td v-text="cm.status" id="td_as1_217846"></td>
           <td id="td_as1_217846"></td>
           <td id="td_as2_217846"></td>
           <td id="td_as3_217846"></td>
@@ -58,8 +53,9 @@
           <td id="td_as10_217846"></td>
         </tr>
         <tr id="tr4_217846">
-          <td>周日301</td>
-          <td>布尔戈斯</td>
+          <td v-text="cm.competitionName"></td>
+          <td v-text="cm.updateTime"></td>
+          <td id="td1_as1_217846"></td>
           <td id="td1_as1_217846"></td>
           <td id="td1_as2_217846"></td>
           <td id="td1_as3_217846"></td>
@@ -71,6 +67,7 @@
           <td id="td1_as9_217846"></td>
           <td id="td1_as10_217846"></td>
         </tr>
+      </template>
       </tbody>
    </div>
   </div>
@@ -82,29 +79,17 @@
   export default {
     data() {
       return {
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
+
+        options: [],
         value2: [],
         value1: '',
+        data:[],
         // activeName: 'second'
       };
     },
     mounted() {
-      this.get()
+      this.get(),
+      this.cate()
     },
     methods: {
       get() {
@@ -116,17 +101,36 @@
              //"queryDate":"2020-06-27"  //查该日期的比赛 可空
           }
         }).then((res)=> {
-            console.log(res)
-            // res.data.msg.forEach((item)=>{
-            // item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
-            // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
-            //  item.matchTime = this.getdate(item.matchTime)
-            // })
-            // this.tableData=res.data.msg
+          console.log(res);
+            res.data.msg.forEach((item)=>{
+              item.updateTime = this.getdate(item.updateTime)
+            })
+            this.data=res.data.msg
           })
           .catch(function (error) {
             console.log(error);
           });
+      },
+      cate(){
+      // 分类
+        this.axios.get('api/quartz/basketball/findAllCompetition', {
+          params: {
+
+          }
+        }).then((res)=> {
+            this.options=res.data.msg
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+      },
+      getdate() {
+        let now = new Date(),
+          y = now.getFullYear(),
+          m = now.getMonth() + 1,
+          d = now.getDate();
+        return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
       }
     }
   };
