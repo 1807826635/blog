@@ -2,6 +2,7 @@
 <template>
   <div class="tab">
   <div>
+      <span class="demonstration">赛事类型</span>
       <el-select v-model="value2" multiple placeholder="请选择">
         <el-option
           v-for="item in options"
@@ -10,63 +11,68 @@
           :value="item.id">
         </el-option>
       </el-select>
-  </div>
-  <div class="block">
+<!--  </div>
+  <div class="block"> -->
      <span class="demonstration">赛事选择</span>
      <el-date-picker
        v-model="value1"
        type="date"
        placeholder="选择日期">
      </el-date-picker>
+     <el-switch
+       v-model="value3"
+       inactive-color="#efefef"
+       active-text="完场"
+       inactive-text="关闭完场">
+     </el-switch>
    </div>
     <div class="box">
       <tbody>
         <tr id="tr0_217846">
-          <th width="160">赛事</th>
+          <th width="100">赛事</th>
           <th width="160"><span id="th_s_217846">时间</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
-          <th width="100">状态</th>
+          <th width="160">队名</th>
           <th width="77">一节</th>
           <th width="77">二节</th>
           <th width="77">三节</th>
           <th width="77">四节</th>
-          <th width="82" id="th_f_217846">全场</th>
+          <th width="82" id="th_f_217846">加时得分</th>
           <th style="line-height:27px" width="76">总分</th>
-          <th width="82">胜负</th>
-          <th width="126">让分胜负</th>
-          <th width="144">大小分</th>
-          <th width="100" style="border-right:1px solid #c9e1f0">其他</th>
+          <th width="126">是否中立赛事</th>
+          <th width="126">队伍id</th>
+          <th width="200" style="border-right:1px solid #c9e1f0;">其他</th>
         </tr>
-        <template v-for="cm in data">
-        <tr id="tr1_2178461" v-bind:key="cm" >
-          <td v-text="cm.competitionName"></td>
-          <td v-text="cm.updateTime"></td>
-          <td v-text="cm.status" id="td_as1_217846"></td>
-          <td id="td_as1_2178467"></td>
-          <td id="td_as2_217846"></td>
-          <td id="td_as3_217846"></td>
-          <td id="td_as4_217846"></td>
-          <td id="td_as5_217846"></td>
-          <td id="td_as6_217846"></td>
-          <td id="td_as7_217846"></td>
-          <td id="td_as8_217846"></td>
-          <td id="td_as9_217846"></td>
-          <td id="td_as10_217846"></td>
-        </tr>
-        <tr id="tr4_217846" v-bind:key="cm">
-          <td v-text="cm.competitionName"></td>
-          <td v-text="cm.updateTime"></td>
-          <td id="td1_as1_217846"></td>
-          <td id="td1_as1_2178467"></td>
-          <td id="td1_as2_217846"></td>
-          <td id="td1_as3_217846"></td>
-          <td id="td1_as4_217846"></td>
-          <td id="td1_as5_217846"></td>
-          <td id="td1_as6_217846"></td>
-          <td id="td1_as7_217846"></td>
-          <td id="td1_as8_217846"></td>
-          <td id="td1_as9_217846"></td>
-          <td id="td1_as10_217846"></td>
-        </tr>
+        <template v-for="(item,index) in data">
+          <tr id="tr1_2178461" v-bind:key="index">
+            <td style="border-bottom: 0px;" v-text="item.competitionName" :style="{background:item.color}"></td>
+            <td style="border-bottom: 0px;" v-text="item.matchTime"></td>
+            <td v-text="item.zteamName" id="td_as11_217846">
+              <font>{}</font>
+            </td>
+            <td v-text="item.zscore1"  id="td_as1_217846"></td>
+            <td v-text="item.zscore2"  id="td_as2_217846"></td>
+            <td v-text="item.zscore3"  id="td_as3_217846"></td>
+            <td v-text="item.zscore4"  id="td_as4_217846"></td>
+            <td v-text="item.zscore5"  id="td_as5_217846"></td>
+            <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
+            <td v-text="item.n"  id="td_as7_217846"></td>
+            <td v-text="item.zteamId" id="td_as8_217846"></td>
+            <td id="td_as10_217846"></td>
+          </tr>
+          <tr id="tr4_217846" v-bind:key="item.id">
+            <td :style="{background:item.color}"></td>
+            <td></td>
+            <td v-text="item.kteamName" id="td1_as11_217846"></td>
+            <td v-text="item.kscore1" id="td1_as1_217846"></td>
+            <td v-text="item.kscore2" id="td1_as2_217846"></td>
+            <td v-text="item.kscore3" id="td1_as3_217846"></td>
+            <td v-text="item.kscore4" id="td1_as4_217846"></td>
+            <td v-text="item.kscore5" id="td1_as5_217846"></td>
+            <td v-text="item.kscoreTotle" id="td1_as6_217846"></td>
+            <td v-text="item.n" id="td1_as8_217846"></td>
+            <td v-text="item.kteamId" id="td1_as9_217846"></td>
+            <td id="td1_as10_217846"></td>
+          </tr>
       </template>
       </tbody>
    </div>
@@ -82,6 +88,7 @@
 
         options: [],
         value2: [],
+        value3:'',
         value1: '',
         data:[],
         // activeName: 'second'
@@ -104,6 +111,8 @@
           console.log(res);
             res.data.msg.forEach((item)=>{
               item.updateTime = this.getdate(item.updateTime)
+              item.zteamName = `${item.zteamName}(${item.zrank})`
+              item.kteamName = `${item.kteamName}(${item.krank})`
             })
             this.data=res.data.msg
           })
@@ -176,5 +185,8 @@
   }
   #td1_as10_217846{
     border-right: 1px solid #c9e1f0;
+  }
+  tr{
+    text-align: center;
   }
 </style>
