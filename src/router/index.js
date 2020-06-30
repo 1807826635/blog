@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/login'
 import basketball from '@/components/basketball'
 import footballSchedule from '@/components/footballSchedule'
+import liveanime from '@/components/liveanime'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
     path: '/football/schedule',
     name: 'footballSchedule',
     component: footballSchedule
+  }, { // 足球实时赛程
+    path: '/liveanime',
+    name: 'liveanime',
+    component: liveanime
   }
+
   ]
 })
