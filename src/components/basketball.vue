@@ -45,8 +45,8 @@
         </tr>
         <template v-for="(item,index) in data">
           <tr id="tr1_2178461" v-bind:key="index">
-            <td style="border-bottom: 0px;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
-            <td style="border-bottom: 0px;" v-text="item.matchTime"></td>
+            <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
+            <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.matchTime" rowspan="2"></td>
             <td v-text="item.zteamName" id="td_as11_217846">
               <font>{}</font>
             </td>
@@ -147,7 +147,7 @@
         // console.log(this.value2)
         var select = (this.value2).toString()
         var time = this.value1;
-        console.log(time,select)
+        console.log(time)
         let  params={competitionId:select,
                       defaultDate:"2020-06-26",
                     }
