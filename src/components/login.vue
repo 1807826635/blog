@@ -7,21 +7,32 @@
             <span class="demonstration">查询</span>
             <el-date-picker
               v-model="value1"
-              :change=dateChange()
+              @change="get"
               type="date"
               placeholder="选择日期">
             </el-date-picker>
+            <span class="demonstration">赛事类型</span>
+            <el-select v-model="value3" @change="get" multiple placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.id"
+                :label="item.shortName"
+                :value="item.id">
+              </el-option>
+            </el-select>
+            <el-switch
+            v-model="value2"
+            @change="get"
+            inactive-color="#efefef"
+            active-text="开启完场"
+            inactive-text="开启半场">
+            </el-switch>
           </div>
         </div>
       </div>
-      <div class="switchs">
-      <el-switch
-      v-model="value2"
-      inactive-color="#efefef"
-      active-text="开启完场场"
-      inactive-text="开启半场">
-      </el-switch>
-      </div>
+<!--      <div class="switchs">
+
+      </div> -->
       <div class="tab">
         <table class="el-table">
           <thead class="thead">
@@ -63,12 +74,15 @@
         phone: '',
         value1: '',
         value2:false,
-        tableData:[]
+        value3: '',
+        tableData:[],
+        options: [],
       }
     },
     mounted(){
       console.log(this.$moment().toDate())
-      this.get()
+      this.get(),
+      this.cate()
     },
     methods: {
       dateChange(){
@@ -82,12 +96,41 @@
         return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
       },
       get() {
-        let params={}
-         let time =(new Date()).getTime();
-        params.defaultDate=this.$moment(time).format('YYYY-MM-DD')
-        this.axios.get('api/quartz/soccer/findMatchByParams', {
-          params:params
-        }).then((res)=> {
+        let time =(new Date()).getTime();
+        // 一天前
+        let Dates =this.$moment(time).subtract(1,'days')
+        // 当前时间
+        let defaultDate=this.$moment(time).format('YYYY-MM-DD')
+
+        var select = (this.value3).toString()
+
+        var d = new Date(this.value1);
+        d =this.$moment(d).format('YYYY-MM-DD');
+
+        // 是否选择时间
+        if(d==='Invalid date'){
+          d='';
+        }
+
+        var f = this.value2;
+
+        // 是否完场
+        if(f){
+          f = 1;
+        }else{
+          f = 0;
+        }
+        let  params={
+                      competitionId:select,
+                      defaultDate:defaultDate,
+                      complate:f,
+                      queryDate:d  //查该日期的比赛 可空
+                    }
+        // console.log("22222222");
+        // let params={}
+        //  let time =(new Date()).getTime();
+        // params.defaultDate=this.$moment(time).format('YYYY-MM-DD')
+        this.axios.get('api/quartz/soccer/findMatchByParams', {params}).then((res)=> {
           res.data.msg.forEach((item)=>{
             item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
             item.zteamName = `${item.zteamName}(${item.zrank})`
@@ -102,6 +145,20 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+      cate(){
+      // 分类
+        this.axios.get('api/quartz/soccer/findAllCompetition', {
+          params: {
+
+          }
+        }).then((res)=> {
+            this.options=res.data.msg
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
       }
     }
   }

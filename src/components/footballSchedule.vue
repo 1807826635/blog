@@ -14,14 +14,15 @@
           <!--</div>-->
         </div>
       </div>
-      <!--<div class="switchs">-->
-        <!--&lt;!&ndash;<el-switch&ndash;&gt;-->
-          <!--&lt;!&ndash;v-model="value2"&ndash;&gt;-->
-          <!--&lt;!&ndash;inactive-color="#efefef"&ndash;&gt;-->
-          <!--&lt;!&ndash;active-text="开启完场场"&ndash;&gt;-->
-          <!--&lt;!&ndash;inactive-text="开启半场">&ndash;&gt;-->
-        <!--&lt;!&ndash;</el-switch>&ndash;&gt;-->
-    <!--</div>-->
+            <span class="demonstration">赛事类型</span>
+            <el-select v-model="value3" @change="get" multiple placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.id"
+                :label="item.shortName"
+                :value="item.id">
+              </el-option>
+            </el-select>
       <div class="tab">
         <table class="el-table">
           <thead class="thead">
@@ -43,7 +44,14 @@
               <th width="160">{{item.kteamName}}</th>
               <th width="160">{{item.half}}</th>
               <th width="160">{{item.note}}</th>
-              <th width="160">{{item.isVideo}}</th>
+              <th width="160">
+              {{item.isVideo}}
+              <router-link :to="{name: 'liveanime', params: {id: item.id}}">
+
+              　　<button>跳转</button>
+
+              </router-link>　　
+              </th>
             </tr>
           </template>
         </table>
@@ -66,12 +74,15 @@
         phone: '',
         value1: '',
         value2:false,
-        tableData:[]
+        value3: '',
+        tableData:[],
+        options: [],
       }
     },
     mounted(){
       console.log(this.$moment().toDate())
       this.get()
+      this.cate()
     },
     methods: {
       dateChange(){
@@ -85,18 +96,41 @@
         return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
       },
       get() {
-        let params={}
         let time =(new Date()).getTime();
-        params.defaultDate=this.$moment(time).subtract(1,'days')
-        this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {
-          params:params
-          // params: {
-          //   //"competitionId": "166",//赛事ID，多个以逗号分隔  可空
-          //   // "complate": 1, //为1时，查完场  可空
-          //   "defaultDate": "2020-06-26", //查该日期以后的比赛 可空}
-          //   //"queryDate":"2020-06-27"  //查该日期的比赛 可空
-          // }
-        }).then((res)=> {
+        // 一天前
+        let Dates =this.$moment(time).subtract(1,'days').format('YYYY-MM-DD')
+        // 当前时间
+        let defaultDate=this.$moment(time).format('YYYY-MM-DD')
+
+        var select = (this.value3).toString()
+
+        var d = new Date(this.value1);
+        d =this.$moment(d).format('YYYY-MM-DD');
+
+        // 是否选择时间
+        if(d==='Invalid date'){
+          d='';
+        }
+
+        var f = this.value2;
+
+        // 是否完场
+        if(f){
+          f = 1;
+        }else{
+          f = 0;
+        }
+        let  params={
+                      competitionId:select,
+                      defaultDate:'2020-06-20',
+                      // defaultDate:Dates,
+                      complate:f,
+                      // queryDate:d  //查该日期的比赛 可空
+                    }
+        // let params={}
+        // let time =(new Date()).getTime();
+        // params.defaultDate=this.$moment(time).subtract(1,'days')
+        this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res)=> {
           res.data.msg.forEach((item)=>{
             item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
             item.zteamName = `${item.zteamName}(${item.zrank})`
@@ -111,6 +145,20 @@
           .catch(function (error) {
             console.log(error);
           });
+      },
+      cate(){
+      // 分类
+        this.axios.get('api/quartz/soccer/findAllCompetition', {
+          params: {
+
+          }
+        }).then((res)=> {
+            this.options=res.data.msg
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
       }
     }
   }

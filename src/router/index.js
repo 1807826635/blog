@@ -4,6 +4,7 @@ import home from '@/components/login'
 import basketball from '@/components/basketball'
 import footballSchedule from '@/components/footballSchedule'
 import liveanime from '@/components/liveanime'
+import basketballagenda from '@/components/basketballagenda'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
     path: '/liveanime',
     name: 'liveanime',
     component: liveanime
+  },
+  { // 篮球
+    path: '/basketballagenda',
+    name: 'basketballagenda',
+    component: basketballagenda
   }
 
   ]

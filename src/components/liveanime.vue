@@ -3,8 +3,7 @@
     <scenceCase class="mobile"></scenceCase>
 
     <iframe
-        id="iframeId" :src="url" frameborder="0" class="pc iframe"  scrolling="auto"
-        @load='loadfrom'>
+        id="iframeId" :src="url" frameborder="0" class="pc iframe"  scrolling="auto">
     </iframe>
   </div>
 
@@ -14,10 +13,22 @@
 /* eslint-disable */
 export default{
   data(){
-    return{
-      url:'https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732'
+      return{
+        url:'https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732'
+      }
+
+    },
+    mounted(){
+      this.join()
+    },
+    methods: {
+      join(){
+        var id = this.$route.params.id
+        // console.log(id);
+        this.url='https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id='+id
+      }
     }
-  }
+
 }
 </script>
 

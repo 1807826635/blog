@@ -16,7 +16,7 @@
         </el-submenu>
     <el-submenu index="2">
       <template slot="title">赛程</template>
-      <el-menu-item index="2-1" @click="Goto('/basketball')">篮球赛程</el-menu-item>
+      <el-menu-item index="2-1" @click="Goto('/basketballagenda')">篮球赛程</el-menu-item>
       <el-menu-item index="2-2" @click="Goto('/football/schedule')">足球赛程</el-menu-item>
 <!--      <el-submenu index="2-4">
         <template slot="title">选项4</template>
