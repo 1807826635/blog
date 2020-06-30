@@ -93,8 +93,8 @@
             item.zteamName = `${item.zteamName}(${item.zrank})`
             item.kteamName = `${item.kteamName}(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
-            item.updateTime = this.getdate(item.updateTime)
-            item.matchTime=this.getdate(item.matchTime)
+            item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
+            item.matchTime=this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
 
           })
           this.tableData=res.data.msg

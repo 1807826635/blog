@@ -3,7 +3,7 @@
   <div class="tab">
   <div>
       <span class="demonstration">赛事类型</span>
-      <el-select v-model="value2" @blur="select" multiple placeholder="请选择">
+      <el-select v-model="value2" @change="select" multiple placeholder="请选择">
         <el-option
           v-for="item in options"
           :key="item.id"
@@ -16,7 +16,7 @@
      <span class="demonstration">赛事选择</span>
      <el-date-picker
        v-model="value1"
-       @blur="select"
+       @change="select"
        type="date"
        placeholder="选择日期">
      </el-date-picker>
@@ -145,13 +145,13 @@
       },
       select(){
         // console.log(this.value2)
-        var select = this.value2;
+        var select = (this.value2).toString()
         var time = this.value1;
         console.log(time,select)
-        let  params={competitionId:[...select],
+        let  params={competitionId:select,
                       defaultDate:"2020-06-26",
                     }
-        // console.log(params);
+        console.log(params);
         this.axios.get('api/quartz/basketball/findCurrentMatchByParams',{params}).then((res)=> {
           // console.log(res);
             res.data.msg.forEach((item)=>{
