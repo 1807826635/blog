@@ -45,7 +45,7 @@
         </tr>
         <template v-for="(item,index) in data">
           <tr id="tr1_2178461" v-bind:key="index">
-            <td style="border-bottom: 0px;" v-text="item.competitionName" :style="{background:item.color}"></td>
+            <td style="border-bottom: 0px;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
             <td style="border-bottom: 0px;" v-text="item.matchTime"></td>
             <td v-text="item.zteamName" id="td_as11_217846">
               <font>{}</font>
@@ -61,8 +61,8 @@
             <td id="td_as10_217846"></td>
           </tr>
           <tr id="tr4_217846" v-bind:key="item.id">
-            <td :style="{background:item.color}"></td>
-            <td></td>
+            <!--<td :style="{background:item.color}"></td>-->
+            <!--<td></td>-->
             <td v-text="item.kteamName" id="td1_as11_217846"></td>
             <td v-text="item.kscore1" id="td1_as1_217846"></td>
             <td v-text="item.kscore2" id="td1_as2_217846"></td>
