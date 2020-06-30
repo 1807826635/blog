@@ -21,7 +21,7 @@ export default new Router({
     path: '/football/schedule',
     name: 'footballSchedule',
     component: footballSchedule
-  }, { // 足球实时赛程
+  }, { // 足球动画
     path: '/liveanime',
     name: 'liveanime',
     component: liveanime

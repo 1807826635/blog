@@ -3,7 +3,7 @@
   <div class="tab">
   <div>
       <span class="demonstration">赛事类型</span>
-      <el-select v-model="value2" multiple placeholder="请选择">
+      <el-select v-model="value2" @blur="select" multiple placeholder="请选择">
         <el-option
           v-for="item in options"
           :key="item.id"
@@ -16,6 +16,7 @@
      <span class="demonstration">赛事选择</span>
      <el-date-picker
        v-model="value1"
+       @blur="select"
        type="date"
        placeholder="选择日期">
      </el-date-picker>
@@ -100,9 +101,10 @@
     },
     methods: {
       get() {
+        // var select = this.value2;
         this.axios.get('api/quartz/basketball/findCurrentMatchByParams', {
           params: {
-          //"competitionId": "166",//赛事ID，多个以逗号分隔  可空
+          // "competitionId": select,//赛事ID，多个以逗号分隔  可空
            // "complate": 1, //为1时，查完场  可空
             "defaultDate": "2020-06-26", //查该日期以后的比赛 可空}
              //"queryDate":"2020-06-27"  //查该日期的比赛 可空
@@ -110,7 +112,7 @@
         }).then((res)=> {
           console.log(res);
             res.data.msg.forEach((item)=>{
-              item.updateTime = this.getdate(item.updateTime)
+              item.matchTime = this.getdate(item.matchTime)
               item.zteamName = `${item.zteamName}(${item.zrank})`
               item.kteamName = `${item.kteamName}(${item.krank})`
             })
@@ -140,6 +142,28 @@
           m = now.getMonth() + 1,
           d = now.getDate();
         return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+      },
+      select(){
+        // console.log(this.value2)
+        var select = this.value2;
+        var time = this.value1;
+        console.log(time,select)
+        let  params={competitionId:[...select],
+                      defaultDate:"2020-06-26",
+                    }
+        // console.log(params);
+        this.axios.get('api/quartz/basketball/findCurrentMatchByParams',{params}).then((res)=> {
+          // console.log(res);
+            res.data.msg.forEach((item)=>{
+              item.matchTime = this.getdate(item.matchTime)
+              item.zteamName = `${item.zteamName}(${item.zrank})`
+              item.kteamName = `${item.kteamName}(${item.krank})`
+            })
+            this.data=res.data.msg
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       }
     }
   };

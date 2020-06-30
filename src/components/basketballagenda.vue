@@ -3,7 +3,7 @@
   <div class="tab">
   <div>
       <span class="demonstration">赛事类型</span>
-      <el-select v-model="value2" multiple placeholder="请选择">
+      <el-select v-model="value2" @change="currentSel" multiple placeholder="请选择">
         <el-option
           v-for="item in options"
           :key="item.id"
@@ -102,10 +102,10 @@
       get() {
         this.axios.get('api/quartz/basketball/findCurrentMatchByParams', {
           params: {
-          //"competitionId": "166",//赛事ID，多个以逗号分隔  可空
+          // "competitionId": this.value2,//赛事ID，多个以逗号分隔  可空
            // "complate": 1, //为1时，查完场  可空
             "defaultDate": "2020-06-26", //查该日期以后的比赛 可空}
-             //"queryDate":"2020-06-27"  //查该日期的比赛 可空
+             // "queryDate":this.value1 //查该日期的比赛 可空
           }
         }).then((res)=> {
           console.log(res);
@@ -140,6 +140,10 @@
           m = now.getMonth() + 1,
           d = now.getDate();
         return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+      },
+      currentSel(selVal){
+        confirm(this.value2)
+        console.log(selVal)
       }
     }
   };
