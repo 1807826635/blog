@@ -46,11 +46,17 @@
               <th width="160">{{item.note}}</th>
               <th width="160">
               {{item.isVideo}}
-              <router-link :to="{name: 'liveanime', params: {id: item.id}}">
+<!--              <router-link :to="{name: 'liveanime', params: {id: item.id}}">
 
               　　<button>跳转</button>
 
-              </router-link>　　
+              </router-link>　　 -->
+
+              <template>
+                <el-button type="text" @click="open" >
+                  <img src="../assets/wenz.png"/>
+                </el-button>
+              </template>
               </th>
             </tr>
           </template>
@@ -159,7 +165,17 @@
             console.log(error);
           });
 
-      }
+      },
+            open() {
+
+
+              this.$alert('<iframe id="iframeId" src="https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>', '足球直播', {
+                dangerouslyUseHTMLString: true
+              });
+            }
+
+
+
     }
   }
 
@@ -278,4 +294,12 @@
   .index .cell{
     text-align: center;
   }
+#iframeId{
+  width: 100%;
+  height: 600px;
+}
+.el-message-box{
+  width: 50%;
+  height: 100%;
+}
 </style>

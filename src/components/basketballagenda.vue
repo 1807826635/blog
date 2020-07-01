@@ -24,8 +24,8 @@
        v-model="value3"
        inactive-color="#efefef"
        @change="select"
-       active-text="关闭完场"
-       inactive-text="完场">
+       active-text="完场"
+       inactive-text="关闭完场">
      </el-switch>
    </div>
     <div class="box">
@@ -71,9 +71,9 @@
             <td v-text="item.kscore4" id="td1_as4_217846"></td>
             <td v-text="item.kscore5" id="td1_as5_217846"></td>
             <td v-text="item.kscoreTotle" id="td1_as6_217846"></td>
-            <td v-text="item.n" id="td1_as8_217846"></td>
+<!--            <td v-text="item.n" id="td1_as8_217846"></td>
             <td v-text="item.kteamId" id="td1_as9_217846"></td>
-            <td id="td1_as10_217846"></td>
+            <td id="td1_as10_217846"></td> -->
           </tr>
       </template>
       </tbody>
@@ -90,7 +90,7 @@
 
         options: [],
         value2: [],
-        value3:'',
+        value3:false,
         value1: '',
         data:[],
         // activeName: 'second'
@@ -115,8 +115,10 @@
         d =this.$moment(d).format('YYYY-MM-DD');
 
         // 是否选择时间
-        if(d==='Invalid date'){
-          d='';
+        if(d === 'Invalid date'){
+          d = '';
+        }else{
+          Dates = '';
         }
 
         var f = this.value3;
@@ -133,8 +135,8 @@
                       queryDate:d  //查该日期的比赛 可空
                     }
 
-        this.axios.get('api/quartz/basketball/findCurrentMatchByParams',{params}).then((res)=> {
-          // console.log(res);
+        this.axios.get('api/quartz/basketball/findMatchByParams',{params}).then((res)=> {
+
             res.data.msg.forEach((item)=>{
               item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")

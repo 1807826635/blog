@@ -57,9 +57,9 @@
             <td v-text="item.zscore4"  id="td_as4_217846"></td>
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
             <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
-            <td v-text="item.n"  id="td_as7_217846"></td>
+<!--            <td v-text="item.n"  id="td_as7_217846"></td>
             <td v-text="item.zteamId" id="td_as8_217846"></td>
-            <td id="td_as10_217846"></td>
+            <td id="td_as10_217846"></td> -->
           </tr>
           <tr id="tr4_217846" v-bind:key="item.id">
             <!--<td :style="{background:item.color}"></td>-->
@@ -71,9 +71,9 @@
             <td v-text="item.kscore4" id="td1_as4_217846"></td>
             <td v-text="item.kscore5" id="td1_as5_217846"></td>
             <td v-text="item.kscoreTotle" id="td1_as6_217846"></td>
-            <td v-text="item.n" id="td1_as8_217846"></td>
+<!--            <td v-text="item.n" id="td1_as8_217846"></td>
             <td v-text="item.kteamId" id="td1_as9_217846"></td>
-            <td id="td1_as10_217846"></td>
+            <td id="td1_as10_217846"></td> -->
           </tr>
       </template>
       </tbody>
@@ -90,7 +90,7 @@
 
         options: [],
         value2: [],
-        value3:'',
+        value3:false,
         value1: '',
         data:[],
         // activeName: 'second'
@@ -98,7 +98,8 @@
     },
     mounted() {
       this.get(),
-      this.cate()
+      this.cate(),
+      this.initWebSocket()
     },
     methods: {
       get() {
@@ -120,15 +121,17 @@
         }
 
         var f = this.value3;
-        console.log(f)
+        // console.log(f)
         // 是否完场
         if(f){
-          f = 1;
-        }else{
           f = 0;
+        }else{
+          f = 1;
         }
-        let  params={competitionId:select,
+        let  params={
+                      competitionId:select,
                       defaultDate:defaultDate,
+                      // defaultDate:'2020-06-15',
                       complate:f,
                       queryDate:d  //查该日期的比赛 可空
                     }
@@ -172,7 +175,32 @@
       select(){
         this.get()
 
-      }
+      },
+      initWebSocket: function (params) {
+
+                if(typeof(WebSocket) === "undefined"){
+                  alert("此浏览器不支持实时更新数据")
+                }else{
+                  var ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
+                  ws.onopen = function (e) {
+                    console.log('WebSocket已经打开: ')
+                    console.log(e)
+                  }
+                  ws.onmessage = function (e) {
+                    // console.log('WebSocket收到消息: ' + e.data)
+
+                  }
+                  ws.onclose = function (e) {
+                    console.log('WebSocket关闭: ')
+                    console.log(e)
+                  }
+                  ws.onerror = function (e) {
+                    console.log('WebSocket发生错误: ')
+                    console.log(e)
+                  }
+                }
+               }
+
     }
   };
 </script>
