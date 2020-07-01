@@ -44,26 +44,12 @@
               <th width="160">{{item.kteamName}}</th>
               <th width="160">{{item.half}}</th>
               <th width="160">{{item.note}}</th>
-              <th width="160">
-<<<<<<< HEAD
-              {{item.isVideo}}
-<!--              <router-link :to="{name: 'liveanime', params: {id: item.id}}">
-
-              　　<button>跳转</button>
-
-              </router-link>　　 -->
-
-              <template>
-                <el-button type="text" @click="open" >
-                  <img src="../assets/wenz.png"/>
-                </el-button>
-              </template>
-=======
-                {{item.isVideo}}
-                <router-link :to="{name: 'liveanime', params: {id: item.id}}">
-                  <button>跳转</button>
-                </router-link>
->>>>>>> 90b3078a2fdea2038fd648e38d2ae9dd906deb70
+              <th width="160">{{item.isVideo}}
+                <template>
+                  <el-button type="text" @click="open" >
+                    <img src="../assets/wenz.png"/>
+                  </el-button>
+                </template>
               </th>
             </tr>
           </template>
@@ -159,23 +145,15 @@
           this.options = res.data.msg
         }).catch(function (error) {
             console.log(error);
-<<<<<<< HEAD
           });
-
       },
             open() {
-
-
               this.$alert('<iframe id="iframeId" src="https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>', '足球直播', {
                 dangerouslyUseHTMLString: true
               });
-            }
-
-
-
-    }
-=======
-          })
+            // }
+    // }
+    //       })
       },
       updata(data){
         let isHave =false
@@ -251,7 +229,7 @@
         }
       }
     },
->>>>>>> 90b3078a2fdea2038fd648e38d2ae9dd906deb70
+
   }
 
 
