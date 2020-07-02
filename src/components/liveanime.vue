@@ -16,7 +16,6 @@ export default{
       return{
         url:'https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732'
       }
-
     },
     mounted(){
       this.join()

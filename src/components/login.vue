@@ -68,6 +68,9 @@
 var ws = null
   export default {
     name: 'login',
+    metaInfo: {
+      title: '足球'
+    },
     data() {
       return {
         username: '',

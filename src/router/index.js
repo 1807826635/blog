@@ -12,12 +12,14 @@ export default new Router({
   routes: [{ // 足球赛事赛程
     path: '/',
     name: 'home',
-    component: home
+    component: home,
+    meta: {index: 1, title: '足球赛程'}
   },
   {
     path: '/basketball',
     name: 'basketball',
-    component: basketball
+    component: basketball,
+    meta: {index: 1, title: '篮球赛程'}
   }, { // 足球实时赛程
     path: '/football/schedule',
     name: 'footballSchedule',
@@ -28,6 +30,7 @@ export default new Router({
     component: liveanime
   },
   { // 篮球
+    meta: {index: 1, title: '篮球比分'},
     path: '/basketballagenda',
     name: 'basketballagenda',
     component: basketballagenda

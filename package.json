@@ -20,6 +20,7 @@
     "vant": "D:\\code\\vue\\vue\\blog>\"D:\\Program Files\\nodejs\\\\node.exe\"  \"D:\\Program Files\\nodejs\\\\node_modules\\npm\\bin\\npm-cli.js\" config get save-prefix \r\n^2.4.4",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
+    "vue-meta-info": "^0.1.7",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
