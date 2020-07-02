@@ -216,8 +216,9 @@
         }
         that.ws.onmessage = function (e) {
           console.log('WebSocket收到消息: ' + e.data.msg)
-          that.updata(JSON.parse(e.data.msg))
           console.log(e.data)
+          let data = JSON.parse(e.data)
+          that.updata(data.msg)
         }
         that.ws.onclose = function (e) {
           console.log('WebSocket关闭: ')
