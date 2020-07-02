@@ -199,6 +199,7 @@
         height: 40px;
         line-height: 40px;
         empty-cells: show;
+        width: 7%;
   }
   #tr1_2178461 td{
         border-left: 1px solid #c9e1f0;
