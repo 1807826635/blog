@@ -115,6 +115,8 @@ var ws = null
         // 是否选择时间
         if(d==='Invalid date'){
           d='';
+        }else{
+          defaultDate = '';
         }
 
         var f = this.value2;
@@ -129,7 +131,7 @@ var ws = null
                       competitionId:select,
                       defaultDate:defaultDate,
                       complate:f,
-                     // queryDate:d  //查该日期的比赛 可空
+                     queryDate:d  //查该日期的比赛 可空
                     }
         // console.log("22222222");
         // let params={}

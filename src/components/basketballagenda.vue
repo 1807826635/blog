@@ -28,18 +28,18 @@
        inactive-text="关闭完场">
      </el-switch>
    </div>
-    <div class="box">
-      <tbody>
+    <table class="el-table">
+      <thead>
         <tr id="tr0_217846">
-          <th width="100">赛事</th>
-          <th width="160"><span id="th_s_217846">时间</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
-          <th width="200">队名</th>
-          <th width="147">一节</th>
-          <th width="147">二节</th>
-          <th width="147">三节</th>
-          <th width="147">四节</th>
-          <th width="147" id="th_f_217846">加时得分</th>
-          <th style="line-height:27px" width="147">总分</th>
+          <th width="9%">赛事</th>
+          <th width="9%"><span id="th_s_217846">时间</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
+          <th width="9%">队名</th>
+          <th width="9%">一节</th>
+          <th width="9%">二节</th>
+          <th width="9%">三节</th>
+          <th width="9%">四节</th>
+          <th width="9%" id="th_f_217846">加时得分</th>
+          <th style="line-height:27px" width="9%">总分</th>
 <!--          <th width="126">是否中立赛事</th>
           <th width="126">队伍id</th>
           <th width="200" style="border-right:1px solid #c9e1f0;">其他</th> -->
@@ -76,8 +76,8 @@
             <td id="td1_as10_217846"></td> -->
           </tr>
       </template>
-      </tbody>
-   </div>
+      </thead>
+   </table>
   </div>
   <!-- </div> -->
 </template>
@@ -222,6 +222,16 @@
     border-right: 1px solid #c9e1f0;
   }
   tr{
+    text-align: center;
+  }
+  #tr0_217846 th{
+    text-align: center;
+    border-top: 1px solid #c9e1f0;
+  }
+  #tr1_2178461 td{
+    text-align: center;
+  }
+  #tr4_217846 td{
     text-align: center;
   }
 </style>

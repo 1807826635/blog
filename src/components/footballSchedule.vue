@@ -3,7 +3,7 @@
     <div class="head">
       <div class="match_operate" style="height:auto;">
         <div class="float_l">
-          <!--<div class="block">-->
+          <div class="block">
           <!--<span class="demonstration">查询</span>-->
           <!--<el-date-picker-->
           <!--v-model="value1"-->
@@ -11,18 +11,19 @@
           <!--type="date"-->
           <!--placeholder="选择日期">-->
           <!--</el-date-picker>-->
-          <!--</div>-->
+          <span class="demonstration">赛事类型</span>
+          <el-select v-model="value3" @change="get" multiple placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.id"
+              :label="item.shortName"
+              :value="item.id">
+            </el-option>
+          </el-select>
+          </div>
         </div>
       </div>
-      <span class="demonstration">赛事类型</span>
-      <el-select v-model="value3" @change="get" multiple placeholder="请选择">
-        <el-option
-          v-for="item in options"
-          :key="item.id"
-          :label="item.shortName"
-          :value="item.id">
-        </el-option>
-      </el-select>
+
       <div class="tab">
         <table class="el-table">
           <thead class="thead">
@@ -46,7 +47,7 @@
               <th width="160">{{item.note}}</th>
               <th width="160">{{item.isVideo}}
                 <template>
-                  <el-button type="text" @click="open" >
+                  <el-button type="text" @click="open" :id="item.id">
                     <img src="../assets/wenz.png"/>
                   </el-button>
                 </template>
@@ -148,6 +149,8 @@
           });
       },
             open() {
+              console.log(this.id)
+              
               this.$alert('<iframe id="iframeId" src="https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>', '足球直播', {
                 dangerouslyUseHTMLString: true
               });

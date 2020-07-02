@@ -19,11 +19,12 @@ export default new Router({
     path: '/basketball',
     name: 'basketball',
     component: basketball,
-    meta: {index: 1, title: '篮球赛程'}
+    meta: {index: 1, title: '篮球即时比分'}
   }, { // 足球实时赛程
     path: '/football/schedule',
     name: 'footballSchedule',
-    component: footballSchedule
+    component: footballSchedule,
+    meta: {index: 1, title: '足球即时比分'}
   }, { // 足球动画
     path: '/liveanime',
     name: 'liveanime',

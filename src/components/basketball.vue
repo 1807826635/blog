@@ -39,7 +39,9 @@
           <th width="9%">三节</th>
           <th width="9%">四节</th>
           <th width="9%" id="th_f_217846">加时得分</th>
-          <th style="line-height:27px" width="9%">总分</th>
+          <th width="9%" id="th_f_217846">总分</th>
+          <th style="line-height:27px" width="9%">提示音</th>
+
 <!--          <th width="126">是否中立赛事</th>
           <th width="126">队伍id</th>
           <th width="200" style="border-right:1px solid #c9e1f0;">其他</th> -->
@@ -57,6 +59,12 @@
             <td v-text="item.zscore4"  id="td_as4_217846"></td>
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
             <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
+            <td id="td_as10_217846" rowspan="2">
+              <img src="../assets/music.png" />
+                <audio id="audio" preload="auto" autoplay>
+                  <source src="../assets/12898.mp3" type="audio/ogg" />
+                </audio>
+            </td>
 <!--            <td v-text="item.n"  id="td_as7_217846"></td>
             <td v-text="item.zteamId" id="td_as8_217846"></td>
             <td id="td_as10_217846"></td> -->
@@ -93,12 +101,17 @@
         value3:false,
         value1: '',
         data:[],
-        // activeName: 'second'
+        tableData: [],
+        options: [],
+        updateSelect:{}
       };
     },
     mounted() {
       this.get(),
       this.cate(),
+      this.initWebSocket()
+    },
+    created() {
       this.initWebSocket()
     },
     methods: {
@@ -176,30 +189,57 @@
         this.get()
 
       },
-      initWebSocket: function (params) {
+      updata(data){
+        let isHave =false
+        let that = this
+        let tableData = that.data
 
-                if(typeof(WebSocket) === "undefined"){
-                  alert("此浏览器不支持实时更新数据")
-                }else{
-                  var ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
-                  ws.onopen = function (e) {
-                    console.log('WebSocket已经打开: ')
-                    console.log(e)
-                  }
-                  ws.onmessage = function (e) {
-                    // console.log('WebSocket收到消息: ' + e.data)
+        data.updateTime = this.$moment(data.updateTime).format("YYYY-MM-DD kk:mm:ss")
+        data.matchTime = this.$moment(data.matchTime).format("YYYY-MM-DD kk:mm:ss")
+        // item.matchTime = this.getdate(item.matchTime)
+        data.zteamName = `${data.zteamName}(${data.zrank})`
+        data.kteamName = `${data.kteamName}(${data.krank})`
+         for(let i in  tableData){
+           if(tableData[i].id ===data.id){
+             tableData[i] = data
+             isHave =true
+           }
+         }
+         // console.log("1111111111")
+         // console.log(tableData)
+        if(!isHave){
+          // let audio = document.querySelector('#audio')
+          // audio.play()
+          this.$message('有比赛更新啦~');
+         tableData.push(data)
+        }
+        that.tableData=tableData
+      },
+      initWebSocket(params) {
+        let that = this
+        that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
+        // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
+        that.ws.onopen = (e) => {
+          console.log('WebSocket已经打开: ')
 
-                  }
-                  ws.onclose = function (e) {
-                    console.log('WebSocket关闭: ')
-                    console.log(e)
-                  }
-                  ws.onerror = function (e) {
-                    console.log('WebSocket发生错误: ')
-                    console.log(e)
-                  }
-                }
-               }
+          console.log(e)
+        }
+        that.ws.onmessage = function (e) {
+          console.log('WebSocket收到消息: ' + e.data)
+
+          let data = JSON.parse(e.data)
+          // console.log(data)
+          that.updata(data)
+        }
+        that.ws.onclose = function (e) {
+          console.log('WebSocket关闭: ')
+          console.log(e)
+        }
+        that.ws.onerror = function (e) {
+          console.log('WebSocket发生错误: ')
+          this.initWebSocket()
+        }
+      }
 
     }
   };
@@ -247,6 +287,16 @@
     border-right: 1px solid #c9e1f0;
   }
   tr{
+    text-align: center;
+  }
+  #tr0_217846 th{
+    text-align: center;
+    border-top: 1px solid #c9e1f0;
+  }
+  #tr1_2178461 td{
+    text-align: center;
+  }
+  #tr4_217846 td{
     text-align: center;
   }
 </style>
