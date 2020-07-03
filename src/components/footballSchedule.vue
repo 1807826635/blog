@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="head">
-      <div class="match_operate" style="height:auto;">
+      <div class="match_operate" style="height:auto;margin-top: -30px;">
         <div class="float_l">
           <div class="block">
           <!--<span class="demonstration">查询</span>-->
@@ -35,6 +35,7 @@
           <th width="160">半场</th>
           <th width="160">备注</th>
           <th width="160">动画直播</th>
+          <th width="160">提示音</th>
           </thead>
           <template v-for="(item,index) in tableData">
             <tr class="tr" v-bind:key="index">
@@ -51,6 +52,16 @@
                     <img src="../assets/wenz.png"/>
                   </el-button>
                 </template>
+              </th>
+              <th width="160">
+                <el-switch
+                   v-model="value4"
+                   active-text="开"
+                   inactive-text="关">
+                 </el-switch>
+                   <audio id="audio" preload="auto" autoplay>
+                     <source src="../assets/12898.mp3" type="audio/ogg" />
+                   </audio>
               </th>
             </tr>
           </template>
@@ -75,6 +86,7 @@
         value1: '',
         value2: false,
         value3: '',
+        value4: '',
         tableData: [],
         options: [],
         updateSelect:{}
@@ -125,13 +137,12 @@
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {
           res.data.msg.forEach((item) => {
-            if(item.zscoreTotle='null'){
-              item.zscoreTotle='0';
-            }
-            if(item.kscoreTotle='null'){
-              item.kscoreTotle='0';
-            }
+
             item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
+            if(item.score='null-null'){
+              item.score='-';
+            }
+
             item.zteamName = `${item.zteamName}(${item.zrank})`
             item.kteamName = `${item.kteamName}(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -186,6 +197,7 @@
            }
          }
         if(!isHave){
+         this.$message(data.zteamName+data.score+data.kteamName+'比赛更新~');
          tableData.push(data)
         }
         that.tableData=tableData
@@ -229,10 +241,10 @@
           console.log(e)
         }
         that.ws.onmessage = function (e) {
-          console.log('WebSocket收到消息: ' + e.data.msg)
+          console.log('WebSocket收到消息: ' + e.data)
           console.log(e.data)
           let data = JSON.parse(e.data)
-          that.updata(data.msg)
+          that.updata(data)
         }
         that.ws.onclose = function (e) {
           console.log('WebSocket关闭: ')
@@ -302,7 +314,7 @@
 
   .float_l {
     width: 60%;
-    margin: 0 auto;
+    margin: 0 auto !important;
     padding-top: 12px;
     margin-top: 34px;
   }
@@ -384,7 +396,7 @@
   }
 #iframeId{
   width: 100%;
-  height: 600px;
+  height: 900px;
 }
 .el-message-box{
   width: 50%;

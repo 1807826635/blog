@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="head">
-      <div class="match_operate" style="height:auto;">
+      <div class="match_operate" style="height:auto;margin-top: -30px;">
         <div class="float_l">
           <div class="block">
             <span class="demonstration">查询</span>

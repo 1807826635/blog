@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="tab">
-  <div>
+  <div style="margin-top: 5%;margin-bottom: 5%;">
       <span class="demonstration">赛事类型</span>
       <el-select v-model="value2" @change="select" multiple placeholder="请选择">
         <el-option
@@ -60,7 +60,12 @@
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
             <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
             <td id="td_as10_217846" rowspan="2">
-              <img src="../assets/music.png" />
+              <!-- <img src="../assets/music.png" /> -->
+             <el-switch
+                v-model="value4"
+                active-text="开"
+                inactive-text="关">
+              </el-switch>
                 <audio id="audio" preload="auto" autoplay>
                   <source src="../assets/12898.mp3" type="audio/ogg" />
                 </audio>
@@ -86,6 +91,9 @@
       </template>
       </thead>
    </table>
+   <div>
+     <img class="images" src="../assets/timg.png">
+   </div>
   </div>
   <!-- </div> -->
 </template>
@@ -95,7 +103,7 @@
   export default {
     data() {
       return {
-
+        value4:false,
         options: [],
         value2: [],
         value3:false,
@@ -210,7 +218,7 @@
         if(!isHave){
           // let audio = document.querySelector('#audio')
           // audio.play()
-          this.$message('有比赛更新啦~');
+          this.$message(data.zteamName+'-'+data.kteamName+'比赛更新~');
          tableData.push(data)
         }
         that.tableData=tableData
@@ -251,7 +259,7 @@
   .tab {
     width: 60%;
     margin: 0 auto;
-    border: 1px solid #c9e1f0;
+    /* border: 1px solid #000; */
   }
   #tr0_217846{
         height: 20px;
@@ -300,7 +308,20 @@
     text-align: center;
   }
   .demonstration {
-      /* color: #ffffff; */
+      color: #ffffff;
       font-weight: 600;
+  }
+  .images {
+    width: 100%;
+    /* height: 600px; */
+    position: absolute;
+    top: 0;
+    left: 0;
+      background-size:cover;
+      position:fixed;
+      z-index: -1;
+      height:100%;
+    /*opacity: 0.4;*/
+    /*filter:alpha(opacity=40);*/
   }
 </style>

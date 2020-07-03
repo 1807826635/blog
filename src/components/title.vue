@@ -7,12 +7,13 @@
       </a>
     </div>
   </div>
-  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" text-color="#fff" background-color="#59C2FA" @select="handleSelect">
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" text-color="#fff" background-color="#545c64" @select="handleSelect">
     <!-- <el-menu-item index="1">处理中心</el-menu-item> -->
     <el-submenu index="1">
           <template slot="title">即时比分</template>
-          <el-menu-item index="1-1"  @click="Goto('/football/schedule')">足球比分</el-menu-item>
           <el-menu-item index="1-2" @click="Goto('/basketball')">篮球比分</el-menu-item>
+          <el-menu-item index="1-1"  @click="Goto('/football/schedule')">足球比分</el-menu-item>
+
         </el-submenu>
     <el-submenu index="2">
       <template slot="title">赛程</template>
