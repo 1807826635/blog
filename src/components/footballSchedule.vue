@@ -53,9 +53,9 @@
                   </el-button>
                 </template>
               </th>
-              <th width="160">
+              <th width="160"  @click="aplayAudio">
                 <el-switch
-                   v-model="value4"
+                   v-model="item.listene"
                    active-text="开"
                    inactive-text="关">
                  </el-switch>
@@ -103,7 +103,12 @@
     methods: {
       dateChange() {
       },
-      getdate() {
+      aplayAudio () {
+        console.log('ss')
+        const audio = document.getElementById('audio')
+        audio.play()
+      },
+        getdate() {
         let now = new Date(),
           y = now.getFullYear(),
           m = now.getMonth() + 1,
@@ -137,12 +142,11 @@
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {
           res.data.msg.forEach((item) => {
-
             item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
             if(item.score='null-null'){
               item.score='-';
             }
-
+            item.listene= false
             item.zteamName = `${item.zteamName}(${item.zrank})`
             item.kteamName = `${item.kteamName}(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -166,8 +170,7 @@
           });
       },
             open(id) {
-
-              this.$alert('<iframe id="iframeId" src="https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>', '足球直播', {
+              this.$alert("<iframe id='iframeId' src='https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id="+id+"' frameborder='0' class='pc iframe'  scrolling='auto'></iframe>", '足球直播', {
                 dangerouslyUseHTMLString: true
               });
             // }
@@ -194,6 +197,9 @@
            if(tableData[i].id ===data.id){
              tableData[i] = data
              isHave =true
+             if(tableData[i].listene){
+               this.aplayAudio()
+             }
            }
          }
         if(!isHave){
@@ -201,43 +207,13 @@
          tableData.push(data)
         }
         that.tableData=tableData
+
       },
       initWebSocket(params) {
         let that = this
         that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
         // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
         that.ws.onopen = (e) => {
-          console.log('WebSocket已经打开: ')
-          // let actions = {color: "#FFA000",
-          //   competitionName: "西甲",
-          //   competitonId: 19,
-          //   half: null,
-          //   id: 78,
-          //   isVideo: null,
-          //   krank: "B6",
-          //   kredcard: null,
-          //   kscore: null,
-          //   kscoreTotle: null,
-          //   kscorepoint: null,
-          //   kteamId: 1649,
-          //   kteamName: "萨拉戈萨",
-          //   kyellowcard: null,
-          //   matchTime: 1593199800000,
-          //   n: 1,
-          //   note: null,
-          //   status: 9,
-          //   tstartTime: null,
-          //   updateTime: 1593185400455,
-          //   weather: null,
-          //   zrank: "B3",
-          //   zredcard: null,
-          //   zscore: null,
-          //   zscoreTotle: null,
-          //   zscorepoint: null,
-          //   zteamId: 56,
-          //   zteamName: "皇家马德里",
-          //   zyellowcard: null};     //请根据实际项目需要进行修改
-          // that.ws.send(JSON.stringify(actions));
           console.log(e)
         }
         that.ws.onmessage = function (e) {

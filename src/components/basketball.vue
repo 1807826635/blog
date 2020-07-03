@@ -59,10 +59,10 @@
             <td v-text="item.zscore4"  id="td_as4_217846"></td>
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
             <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
-            <td id="td_as10_217846" rowspan="2">
+            <td id="td_as10_217846" rowspan="2" @click="aplayAudio">
               <!-- <img src="../assets/music.png" /> -->
              <el-switch
-                v-model="value4"
+               v-model="item.listene"
                 active-text="开"
                 inactive-text="关">
               </el-switch>
@@ -123,6 +123,11 @@
       this.initWebSocket()
     },
     methods: {
+      aplayAudio () {
+        console.log('ss')
+        const audio = document.getElementById('audio')
+        audio.play()
+      },
       get() {
         // var select = this.value2;
         let time =(new Date()).getTime();
@@ -165,6 +170,7 @@
               // item.matchTime = this.getdate(item.matchTime)
               item.zteamName = `${item.zteamName}(${item.zrank})`
               item.kteamName = `${item.kteamName}(${item.krank})`
+              item.listene= false
             })
             this.data=res.data.msg
           })
@@ -201,7 +207,6 @@
         let isHave =false
         let that = this
         let tableData = that.data
-
         data.updateTime = this.$moment(data.updateTime).format("YYYY-MM-DD kk:mm:ss")
         data.matchTime = this.$moment(data.matchTime).format("YYYY-MM-DD kk:mm:ss")
         // item.matchTime = this.getdate(item.matchTime)
@@ -211,6 +216,9 @@
            if(tableData[i].id ===data.id){
              tableData[i] = data
              isHave =true
+             if(tableData[i].listene){
+               this.aplayAudio()
+             }
            }
          }
          // console.log("1111111111")
