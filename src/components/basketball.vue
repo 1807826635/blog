@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="tab">
-  <div style="margin-top: 5%;margin-bottom: 5%;">
+  <div style="margin-top: 5%;margin-bottom: 3%;">
       <span class="demonstration">赛事类型</span>
       <el-select v-model="value2" @change="select" multiple placeholder="请选择">
         <el-option
@@ -20,13 +20,13 @@
        type="date"
        placeholder="选择日期">
      </el-date-picker> -->
-     <el-switch
+<!--     <el-switch
        v-model="value3"
        inactive-color="#efefef"
        @change="select"
-       active-text="关闭完场"
+       active-text="全部"
        inactive-text="完场">
-     </el-switch>
+     </el-switch> -->
    </div>
     <table class="el-table">
       <thead>

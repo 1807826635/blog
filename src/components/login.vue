@@ -24,8 +24,8 @@
             v-model="value2"
             @change="get"
             inactive-color="#efefef"
-            active-text="开启完场"
-            inactive-text="开启半场">
+            active-text="完场"
+            inactive-text="全部">
             </el-switch>
           </div>
         </div>

@@ -26,7 +26,7 @@
        inactive-color="#efefef"
        @change="select"
        active-text="完场"
-       inactive-text="关闭完场">
+       inactive-text="全部">
      </el-switch>
    </div>
     <table class="el-table">
