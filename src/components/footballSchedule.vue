@@ -47,7 +47,7 @@
               <th width="160">{{item.note}}</th>
               <th width="160">{{item.isVideo}}
                 <template>
-                  <el-button type="text" @click="open" :id="item.id">
+                  <el-button type="text" @click="open(item.id)">
                     <img src="../assets/wenz.png"/>
                   </el-button>
                 </template>
@@ -148,9 +148,8 @@
             console.log(error);
           });
       },
-            open() {
-              console.log(this.id)
-              
+            open(id) {
+
               this.$alert('<iframe id="iframeId" src="https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id=2083732" frameborder="0" class="pc iframe"  scrolling="auto"></iframe>', '足球直播', {
                 dangerouslyUseHTMLString: true
               });
