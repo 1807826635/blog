@@ -44,7 +44,7 @@
           <th width="126">队伍id</th>
           <th width="200" style="border-right:1px solid #c9e1f0;">其他</th> -->
         </tr>
-        <template v-for="(item,index) in data">
+        <template v-for="(item,index) in data" style="padding-bottom: 0px;">
           <tr id="tr1_2178461" v-bind:key="index">
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.matchTime" rowspan="2"></td>
@@ -183,7 +183,7 @@
     margin-bottom: 20px;
   }
   .tab {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     border: 1px solid #c9e1f0;
   }
@@ -204,7 +204,7 @@
   #tr1_2178461 td{
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
-        height: 40px;
+        height: 20px;
         line-height: 40px;
         empty-cells: show;
   }
@@ -225,13 +225,21 @@
     text-align: center;
   }
   #tr0_217846 th{
+    color: #000000;
     text-align: center;
     border-top: 1px solid #c9e1f0;
   }
   #tr1_2178461 td{
+    color: #000000;
     text-align: center;
   }
   #tr4_217846 td{
+    color: #000000;
     text-align: center;
+    padding-bottom: 10px;
+  }
+  .demonstration {
+      /* color: #ffffff; */
+      font-weight: 600;
   }
 </style>

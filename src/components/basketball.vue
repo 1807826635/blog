@@ -249,12 +249,12 @@
     margin-bottom: 20px;
   }
   .tab {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     border: 1px solid #c9e1f0;
   }
   #tr0_217846{
-        height: 30px;
+        height: 20px;
         line-height: 30px;
         color: #003f94;
         background: #e8f6ff;
@@ -298,5 +298,9 @@
   }
   #tr4_217846 td{
     text-align: center;
+  }
+  .demonstration {
+      /* color: #ffffff; */
+      font-weight: 600;
   }
 </style>

@@ -30,7 +30,7 @@
           <th width="160">赛事</th>
           <th width="160">时间</th>
           <th width="160">主场名称</th>
-          <!--<th width="160">比分</th>-->
+          <th width="160">比分</th>
           <th width="160">客场名称</th>
           <th width="160">半场</th>
           <th width="160">备注</th>
@@ -41,7 +41,7 @@
               <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
               <th width="160">{{item.updateTime}}</th>
               <th width="160">{{item.zteamName}}</th>
-              <!--<th width="160">{{item.score}}</th>-->
+              <th width="160">{{item.score}}</th>
               <th width="160">{{item.kteamName}}</th>
               <th width="160">{{item.half}}</th>
               <th width="160">{{item.note}}</th>
@@ -125,7 +125,13 @@
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {
           res.data.msg.forEach((item) => {
-            item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
+            if(item.zscoreTotle='null'){
+              item.zscoreTotle='0';
+            }
+            if(item.kscoreTotle='null'){
+              item.kscoreTotle='0';
+            }
+            item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
             item.zteamName = `${item.zteamName}(${item.zrank})`
             item.kteamName = `${item.kteamName}(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -161,7 +167,13 @@
         let isHave =false
         let that = this
         let tableData = that.tableData
-        data.score = `${data.zscoreTotle}- ${data.kscoreTotle}`
+        if(item.zscoreTotle='null'){
+          item.zscoreTotle='0';
+        }
+        if(item.kscoreTotle='null'){
+          item.kscoreTotle='0';
+        }
+        data.score = `${data.zscoreTotle}-${data.kscoreTotle}`
         data.zteamName = `${data.zteamName}(${data.zrank})`
         data.kteamName = `${data.kteamName}(${data.krank})`
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -239,7 +251,7 @@
 </script>
 <style scoped>
   .head {
-    background: rgb(0, 0, 0, 0.1);
+    /* background: rgb(0, 0, 0, 0.1); */
     border-radius: 10px;
     z-index: 2;
     position: absolute;
@@ -265,10 +277,14 @@
 
   .images {
     width: 100%;
-    height: 600px;
+    /* height: 600px; */
     position: absolute;
     top: 0;
     left: 0;
+      background-size:cover;
+      position:fixed;
+
+      height:100%;
     /*opacity: 0.4;*/
     /*filter:alpha(opacity=40);*/
   }
@@ -285,7 +301,7 @@
   }
 
   .float_l {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     padding-top: 12px;
     margin-top: 34px;
@@ -293,7 +309,7 @@
 
   .tab {
     padding-bottom: 10px;
-    width: 90%;
+    width: 60%;
     text-align: center;
     margin: 0 auto;
     margin-top: 40px;
@@ -372,6 +388,6 @@
 }
 .el-message-box{
   width: 50%;
-  height: 100%;
+  height: 80%;
 }
 </style>

@@ -7,7 +7,7 @@
       </a>
     </div>
   </div>
-  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" text-color="#fff" background-color="#59C2FA" @select="handleSelect">
     <!-- <el-menu-item index="1">处理中心</el-menu-item> -->
     <el-submenu index="1">
           <template slot="title">即时比分</template>
@@ -54,11 +54,15 @@
 .logo{
   display: flex;
   margin: 1%;
+  margin-left: 10%;
 }
   .titles{
     position: relative;
     z-index: 20;
     top: 0;
   }
-
+.el-menu{
+  width: 80%;
+  margin: 0 auto !important;
+}
 </style>

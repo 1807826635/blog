@@ -196,7 +196,7 @@ var ws = null
 </script>
 <style scoped>
   .head{
-    background: rgb(0,0,0,0.1);
+    /* background: rgb(0,0,0,0.1); */
     border-radius: 10px;
     z-index: 2;
     position: absolute;
@@ -220,10 +220,14 @@ var ws = null
   }
   .images{
     width: 100%;
-    height: 600px;
+    /* height: 600px; */
     position: absolute;
     top: 0;
     left: 0;
+      background-size:cover;
+      position:fixed;
+
+      height:100%;
     /*opacity: 0.4;*/
     /*filter:alpha(opacity=40);*/
   }
@@ -240,7 +244,7 @@ var ws = null
   }
 
   .float_l {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     padding-top: 12px;
     margin-top: 34px;
@@ -248,7 +252,7 @@ var ws = null
 
   .tab {
     padding-bottom: 10px;
-    width: 90%;
+    width: 60%;
     text-align: center;
     margin: 0 auto;
     margin-top: 40px;
