@@ -126,6 +126,11 @@
     methods: {
       dateChange() {
       },
+      deepClone  (src) {
+        return JSON.parse(
+          JSON.stringify(src)
+        )
+      },
       aplayAudio () {
         console.log('ss')
         const audio = document.getElementById('audio')
@@ -203,28 +208,27 @@
     // }
     //       })
       },
-      updata(data){
+      updata(upbase){
         let isHave =false
         let that = this
-        let tableData = that.tableData
-
-        data.score = `${data.zscoreTotle}-${data.kscoreTotle}`
-        if(data.score='null-null'){
-          data.score='-';
+        let tableData = this.deepClone(that.data)
+        upbase.score = `${data.zscoreTotle}-${data.kscoreTotle}`
+        if(upbase.score='null-null'){
+          upbase.score='-';
         }
-        data.zrank = `(${data.zrank})`
-        data.krank = `(${data.krank})`
+        upbase.zrank = `(${upbase.zrank})`
+        upbase.krank = `(${upbase.krank})`
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
-        data.updateTime = this.$moment(data.updateTime).format("YYYY-MM-DD kk:mm:ss")
-        data.matchTime = this.$moment(data.matchTime).format("YYYY-MM-DD kk:mm:ss")
-        console.log(data)
+        upbase.updateTime = this.$moment(upbase.updateTime).format("YYYY-MM-DD kk:mm:ss")
+        upbase.matchTime = this.$moment(upbase.matchTime).format("YYYY-MM-DD kk:mm:ss")
+        console.log(upbase)
          for(let i in  tableData){
-           if(tableData[i].id ===data.id){
+           if(tableData[i].id ===upbase.id){
              let listene = tableData[i].listene
-             tableData[i] = data
+             tableData[i] = upbase
              isHave =true
              tableData[i].listene = listene
-             if(tableData[i].listene){
+             if(listene){
                this.aplayAudio()
              }
              if(this.value6){
@@ -234,12 +238,11 @@
            }
          }
         if(!isHave){
-          // console.log(data)
-          tableData.push(data)
+          upbase.listene = this.value5
+          tableData.push(upbase)
         }
-
         that.tableData=tableData
-
+        this.$forceUpdate();
       },
       soundEffect(){
         if(!this.value5){

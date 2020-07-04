@@ -131,6 +131,16 @@
         updateSelect:{}
       };
     },
+    watch: {
+      data: {
+        immediate: true,
+        handler (newV, oldV) {
+           console.log(newV)
+          return newV
+        },
+          deep: true
+        }
+      },
     mounted() {
       this.get(),
       this.cate(),
@@ -141,16 +151,14 @@
     },
     methods: {
       aplayAudio () {
-        console.log('ss')
         const audio = document.getElementById('audio')
         // 从头播放
         audio.currentTime = 0;
         audio.play()
       },
       soundEffect(){
-        console.log(this.value5)
         if(!this.value5){
-          this.data.forEach((item) => {
+         this.data.forEach((item) => {
             item.listene=false
           })
         }else{
@@ -178,7 +186,6 @@
         }
 
         var f = this.value3;
-        // console.log(f)
         // 是否完场
         if(f){
           f = 0;
@@ -194,11 +201,9 @@
                     }
 
         this.axios.get('api/quartz/basketball/findCurrentMatchByParams',{params}).then((res)=> {
-          // console.log(res);
             res.data.msg.forEach((item)=>{
               item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
-              // item.matchTime = this.getdate(item.matchTime)
               item.zrank = `(${item.zrank})`
               item.krank = `(${item.krank})`
               item.listene= true
@@ -213,7 +218,6 @@
       // 分类
         this.axios.get('api/quartz/basketball/findAllCompetition', {
           params: {
-
           }
         }).then((res)=> {
             this.options=res.data.msg
@@ -221,76 +225,54 @@
           .catch(function (error) {
             console.log(error);
           });
-
-      },
-      getdate() {
-        let now = new Date(),
-          y = now.getFullYear(),
-          m = now.getMonth() + 1,
-          d = now.getDate();
-        return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
       },
       select(){
         this.get()
-
       },
-      updata(data){
+    deepClone  (src) {
+        return JSON.parse(
+          JSON.stringify(src)
+        )
+      },
+      updata(upbase){
         let isHave =false
         let that = this
-        let tableData = that.data
-        data.updateTime = this.$moment(data.updateTime).format("YYYY-MM-DD kk:mm:ss")
-        data.matchTime = this.$moment(data.matchTime).format("YYYY-MM-DD kk:mm:ss")
-        // item.matchTime = this.getdate(item.matchTime)
-        data.zrank = `(${data.zrank})`
-        data.krank = `(${data.krank})`
-          console.log(tableData)
-         for(let i in  tableData){
-           if(tableData[i].id ===data.id){
-             let listene = tableData[i].listene
-             tableData[i] = data
-             isHave =true
-             tableData[i].listene = listene
-             console.log(listene)
-             if(tableData[i]){
-               // console.log("222222222")
-               this.aplayAudio()
-             }
-             console.log(this.value6)
-             if(this.value6){
-                       // this.$message({
-                       //   dangerouslyUseHTMLString: true,
-                       //   // message: "<img class='images' src='../assets/timg.png'>",
-                       //   message: "<tr id='tr0_217846'><th width='9%'>"+data.zteamName+"</th><th width='9%'>"+data.kteamName+"</th></tr>"
-                       // });
-               this.$message(tableData[i].zteamName+'-'+tableData[i].kteamName+'比赛更新~');
-             }
-           }
-         }
-        if(!isHave){
-          // let audio = document.querySelector('#audio')
-          // audio.play()
-          // console.log(this.value6)
-
-         tableData.push(data)
+        let tableData = this.deepClone(that.data)
+        upbase.updateTime = this.$moment(upbase.updateTime).format("YYYY-MM-DD kk:mm:ss")
+        upbase.matchTime = this.$moment(upbase.matchTime).format("YYYY-MM-DD kk:mm:ss")
+        upbase.zrank = `(${upbase.zrank})`
+        upbase.krank = `(${upbase.krank})`
+        for(let i in  tableData){
+          if(tableData[i].id === upbase.id){
+            console.log(tableData[i])
+            let listene = tableData[i].listene
+            tableData[i] = upbase
+            isHave =true
+            tableData[i].listene = listene
+            if(listene){
+              this.aplayAudio()
+            }
+            if(this.value6){
+              this.$message(tableData[i].zteamName+'-'+tableData[i].kteamName+'比赛更新~');
+            }
+          }
         }
-
-        that.tableData=tableData
+        if(!isHave){
+          upbase.listene = this.value5
+          tableData.push(upbase)
+        }
+        that.data=tableData
+        this.$forceUpdate();
       },
       initWebSocket(params) {
         let that = this
         that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
         // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
         that.ws.onopen = (e) => {
-          console.log('WebSocket已经打开: ')
-
-          console.log(e)
         }
         that.ws.onmessage = function (e) {
-          console.log('WebSocket收到消息: ' + e.data)
           if(e.data != '连接成功'){
             let data = JSON.parse(e.data)
-            // console.log(data)
-            // soccer
             if(data.type=='basketball'){
               that.updata(data)
             }
@@ -305,11 +287,6 @@
           this.initWebSocket()
         }
       },
-      voice(){
-        let audio = document.querySelector('#audio')
-        console.log(audio)
-      }
-
     }
   };
 </script>
