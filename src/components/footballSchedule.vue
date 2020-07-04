@@ -79,8 +79,8 @@
                    active-text=""
                    inactive-text="">
                  </el-switch>
-                    <audio id="audio" controls="controls" hidden  src="../assets/12898.mp3">
-                      <!-- <source type="audio/ogg" /> -->
+                    <audio id="audio" preload="auto">
+                      <source src="../assets/12898.mp3" />
                     </audio>
               </th>
             </tr>
@@ -211,7 +211,9 @@
       updata(upbase){
         let isHave =false
         let that = this
-        let tableData = this.deepClone(that.data)
+        console.log("111111111")
+        console.log(that.tableData)
+        let tableData = this.deepClone(that.tableData)
         upbase.score = `${data.zscoreTotle}-${data.kscoreTotle}`
         if(upbase.score='null-null'){
           upbase.score='-';
