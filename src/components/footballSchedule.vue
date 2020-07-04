@@ -108,7 +108,7 @@
         value2: false,
         value3: '',
         value4: 'true',
-        value5: true,
+        value5: false,
         value6: true,
         tableData: [],
         options: [],
@@ -177,7 +177,7 @@
             if(item.score='null-null'){
               item.score='-';
             }
-            item.listene= true
+            item.listene= false
             item.zrank = `(${item.zrank})`
             item.krank = `(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -211,10 +211,8 @@
       updata(upbase){
         let isHave =false
         let that = this
-        console.log("111111111")
-        console.log(that.tableData)
-        let tableData = this.deepClone(that.tableData)
-        upbase.score = `${data.zscoreTotle}-${data.kscoreTotle}`
+        let tableDatas = this.deepClone(that.tableData)
+        upbase.score = `${upbase.zscoreTotle}-${upbase.kscoreTotle}`
         if(upbase.score='null-null'){
           upbase.score='-';
         }
@@ -223,27 +221,30 @@
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
         upbase.updateTime = this.$moment(upbase.updateTime).format("YYYY-MM-DD kk:mm:ss")
         upbase.matchTime = this.$moment(upbase.matchTime).format("YYYY-MM-DD kk:mm:ss")
-        console.log(upbase)
-         for(let i in  tableData){
-           if(tableData[i].id ===upbase.id){
-             let listene = tableData[i].listene
-             tableData[i] = upbase
+         for(let i in  tableDatas){
+           if(tableDatas[i].id ===upbase.id){
+             let listene = tableDatas[i].listene
+             console.log(listene)
+             tableDatas[i] = upbase
              isHave =true
-             tableData[i].listene = listene
+             tableDatas[i].listene = listene
              if(listene){
-               this.aplayAudio()
+               that.aplayAudio()
              }
              if(this.value6){
-               this.$message(tableData[i].zteamName+tableData[i].score+tableData[i]
+               this.$message(tableDatas[i].zteamName+tableDatas[i].score+tableDatas[i]
                .kteamName+'比赛更新~');
               }
            }
          }
         if(!isHave){
-          upbase.listene = this.value5
-          tableData.push(upbase)
+          upbase.listene = true
+          if(this.value5){
+            that.aplayAudio()
+          }
+          tableDatas.push(upbase)
         }
-        that.tableData=tableData
+        that.tableData=tableDatas
         this.$forceUpdate();
       },
       soundEffect(){

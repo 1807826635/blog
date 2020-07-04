@@ -123,7 +123,7 @@
         value2: [],
         value3:false,
         value1: '',
-        value5:true,
+        value5:false,
         value6:true,
         data:[],
         tableData: [],
@@ -206,7 +206,7 @@
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
               item.zrank = `(${item.zrank})`
               item.krank = `(${item.krank})`
-              item.listene= true
+              item.listene= false
             })
             this.data=res.data.msg
           })
@@ -258,7 +258,10 @@
           }
         }
         if(!isHave){
-          upbase.listene = this.value5
+          upbase.listene =false
+          if(this.value5){
+            that.aplayAudio()
+          }
           tableData.push(upbase)
         }
         that.data=tableData
