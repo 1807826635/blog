@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="head">
-      <div class="match_operate" style="height:auto;margin-top: -30px;">
+      <div class="match_operate" style="height:auto;">
         <div class="float_l">
           <div class="block">
           <!--<span class="demonstration">查询</span>-->
@@ -20,6 +20,22 @@
               :value="item.id">
             </el-option>
           </el-select>
+          <span class="demonstration" style="margin-left: 2%;">音效</span>
+           <el-switch
+            v-model="value5"
+            inactive-color="#efefef"
+            active-text="开"
+            inactive-text="关">
+           </el-switch>
+          <!-- </template> -->
+          <!-- <div style="display: flex;margin-left: 2%;"> -->
+           <span class="demonstration" style="margin-left: 2%;">消息提示</span>
+            <el-switch
+             v-model="value6"
+             inactive-color="#efefef"
+             active-text="开"
+             inactive-text="关">
+            </el-switch>
           </div>
         </div>
       </div>
@@ -46,9 +62,11 @@
               <th width="160">{{item.kteamName}}</th>
               <th width="160">{{item.half}}</th>
               <th width="160">{{item.note}}</th>
-              <th width="160">{{item.isVideo}}
+              <!-- <th width="160">{{item.isVideo}}</th> -->
+              <th width="160">
                 <template>
-                  <el-button type="text" @click="open(item.id)">
+                  <!-- {{item.isVideo}} -->
+                  <el-button type="text" v-if="item.isVideo == '1'"  @click="open(item.id)">
                     <img src="../assets/wenz.png"/>
                   </el-button>
                 </template>
@@ -56,8 +74,8 @@
               <th width="160"  @click="aplayAudio">
                 <el-switch
                    v-model="item.listene"
-                   active-text="开"
-                   inactive-text="关">
+                   active-text=""
+                   inactive-text="">
                  </el-switch>
                    <audio id="audio" preload="auto" autoplay>
                      <source src="../assets/12898.mp3" type="audio/ogg" />
@@ -86,7 +104,9 @@
         value1: '',
         value2: false,
         value3: '',
-        value4: '',
+        value4: 'true',
+        value5: true,
+        value6: true,
         tableData: [],
         options: [],
         updateSelect:{}
@@ -138,6 +158,7 @@
         let params = {
           competitionId: select,
           defaultDate: '2020-06-20',
+          // defaultDate:defaultDate,
           complate: f,
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {
@@ -146,7 +167,7 @@
             if(item.score='null-null'){
               item.score='-';
             }
-            item.listene= false
+            item.listene= true
             item.zteamName = `${item.zteamName}(${item.zrank})`
             item.kteamName = `${item.kteamName}(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -181,13 +202,11 @@
         let isHave =false
         let that = this
         let tableData = that.tableData
-        if(item.zscoreTotle='null'){
-          item.zscoreTotle='0';
-        }
-        if(item.kscoreTotle='null'){
-          item.kscoreTotle='0';
-        }
+
         data.score = `${data.zscoreTotle}-${data.kscoreTotle}`
+        if(data.score='null-null'){
+          data.score='-';
+        }
         data.zteamName = `${data.zteamName}(${data.zrank})`
         data.kteamName = `${data.kteamName}(${data.krank})`
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
@@ -203,8 +222,11 @@
            }
          }
         if(!isHave){
-         this.$message(data.zteamName+data.score+data.kteamName+'比赛更新~');
-         tableData.push(data)
+         if(this.value6){
+           this.$message(data.zteamName+data.score+data.kteamName+'比赛更新~');
+          }
+          // console.log(data)
+          tableData.push(data)
         }
         that.tableData=tableData
 
@@ -218,9 +240,13 @@
         }
         that.ws.onmessage = function (e) {
           console.log('WebSocket收到消息: ' + e.data)
-          console.log(e.data)
-          let data = JSON.parse(e.data)
-          that.updata(data)
+          // console.log(e)
+          if(e.data != '连接成功'){
+            let data = JSON.parse(e.data)
+            if(data.type=='soccer'){
+              that.updata(data)
+            }
+          }
         }
         that.ws.onclose = function (e) {
           console.log('WebSocket关闭: ')
@@ -300,7 +326,7 @@
     width: 60%;
     text-align: center;
     margin: 0 auto;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     border-top: none;
   }
 
@@ -377,5 +403,13 @@
 .el-message-box{
   width: 50%;
   height: 80%;
+}
+.thead{
+  background-color: #545c64;
+  /* color: #FFFFFF; */
+}
+.thead th{
+  /* background-color: #545c64; */
+  color: #FFFFFF;
 }
 </style>

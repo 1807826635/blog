@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="tab">
-  <div style="margin-top: 5%;margin-bottom: 3%;">
+  <div style="margin-top: 3%;">
       <span class="demonstration">赛事类型</span>
       <el-select v-model="value2" @change="select" multiple placeholder="请选择">
         <el-option
@@ -13,20 +13,32 @@
       </el-select>
 <!--  </div>
   <div class="block"> -->
-     <span class="demonstration">赛事选择</span>
+
 <!--     <el-date-picker
        v-model="value1"
        @change="select"
        type="date"
        placeholder="选择日期">
      </el-date-picker> -->
-<!--     <el-switch
-       v-model="value3"
+     <!-- <template style="display: flex;margin-left: 2%;"> -->
+     <span class="demonstration" style="margin-left: 2%;">总音效</span>
+      <el-switch
+       v-model="value5"
        inactive-color="#efefef"
-       @change="select"
-       active-text="全部"
-       inactive-text="完场">
-     </el-switch> -->
+       @change="voice"
+       active-text="开"
+       inactive-text="关">
+      </el-switch>
+     <!-- </template> -->
+     <!-- <div style="display: flex;margin-left: 2%;"> -->
+      <span class="demonstration" style="margin-left: 2%;">消息提示</span>
+       <el-switch
+        v-model="value6"
+        inactive-color="#efefef"
+        active-text="开"
+        inactive-text="关">
+       </el-switch>
+     <!-- </div> -->
    </div>
     <table class="el-table">
       <thead>
@@ -63,8 +75,8 @@
               <!-- <img src="../assets/music.png" /> -->
              <el-switch
                v-model="item.listene"
-                active-text="开"
-                inactive-text="关">
+                active-text=""
+                inactive-text="">
               </el-switch>
                 <audio id="audio" preload="auto" autoplay>
                   <source src="../assets/12898.mp3" type="audio/ogg" />
@@ -108,6 +120,8 @@
         value2: [],
         value3:false,
         value1: '',
+        value5:true,
+        value6:true,
         data:[],
         tableData: [],
         options: [],
@@ -156,8 +170,8 @@
         }
         let  params={
                       competitionId:select,
-                      defaultDate:defaultDate,
-                      // defaultDate:'2020-06-15',
+                      // defaultDate:defaultDate,
+                      defaultDate:'2020-06-15',
                       complate:f,
                       queryDate:d  //查该日期的比赛 可空
                     }
@@ -170,7 +184,7 @@
               // item.matchTime = this.getdate(item.matchTime)
               item.zteamName = `${item.zteamName}(${item.zrank})`
               item.kteamName = `${item.kteamName}(${item.krank})`
-              item.listene= false
+              item.listene= true
             })
             this.data=res.data.msg
           })
@@ -226,7 +240,15 @@
         if(!isHave){
           // let audio = document.querySelector('#audio')
           // audio.play()
-          this.$message(data.zteamName+'-'+data.kteamName+'比赛更新~');
+          console.log(this.value6)
+          if(this.value6){
+                    // this.$message({
+                    //   dangerouslyUseHTMLString: true,
+                    //   // message: "<img class='images' src='../assets/timg.png'>",
+                    //   message: "<tr id='tr0_217846'><th width='9%'>"+data.zteamName+"</th><th width='9%'>"+data.kteamName+"</th></tr>"
+                    // });
+            this.$message(data.zteamName+'-'+data.kteamName+'比赛更新~');
+          }
          tableData.push(data)
         }
         that.tableData=tableData
@@ -242,10 +264,14 @@
         }
         that.ws.onmessage = function (e) {
           console.log('WebSocket收到消息: ' + e.data)
-
-          let data = JSON.parse(e.data)
-          // console.log(data)
-          that.updata(data)
+          if(e.data != '连接成功'){
+            let data = JSON.parse(e.data)
+            // console.log(data)
+            // soccer
+            if(data.type=='basketball'){
+              that.updata(data)
+            }
+          }
         }
         that.ws.onclose = function (e) {
           console.log('WebSocket关闭: ')
@@ -255,6 +281,9 @@
           console.log('WebSocket发生错误: ')
           this.initWebSocket()
         }
+      },
+      voice(){
+
       }
 
     }
@@ -272,10 +301,11 @@
   #tr0_217846{
         height: 20px;
         line-height: 30px;
-        color: #003f94;
-        background: #e8f6ff;
+        color: #fff;
+        /* background-color: #545c64; */
   }
   #tr0_217846 th{
+    background-color: #545c64;
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
         height: 40px;

@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="head">
-      <div class="match_operate" style="height:auto;margin-top: -30px;">
+      <div class="match_operate" style="height:auto;">
         <div class="float_l">
           <div class="block">
             <span class="demonstration">查询</span>
@@ -255,7 +255,7 @@ var ws = null
     width: 60%;
     text-align: center;
     margin: 0 auto;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     border-top: none;
   }
   .has-gutter{
@@ -309,5 +309,13 @@ var ws = null
   }
   .index .cell{
     text-align: center;
+  }
+  .thead{
+    background-color: #545c64;
+    /* color: #FFFFFF; */
+  }
+  .thead th{
+    /* background-color: #545c64; */
+    color: #FFFFFF;
   }
 </style>

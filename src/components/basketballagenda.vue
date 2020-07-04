@@ -2,7 +2,7 @@
 <template>
   <div class="tab">
 
-  <div style="margin-top: 5%;margin-bottom: 5%;">
+  <div style="margin-top: 3%;">
       <span class="demonstration">赛事类型</span>
       <el-select v-model="value2" @change="select" multiple placeholder="请选择">
         <el-option
@@ -194,10 +194,12 @@
   #tr0_217846{
         height: 30px;
         line-height: 30px;
-        color: #003f94;
-        background: #e8f6ff;
+        color: #fff;
+        /* background: #e8f6ff; */
   }
   #tr0_217846 th{
+    color: #fff;
+       background-color: #545c64;
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
         height: 40px;
@@ -229,7 +231,7 @@
     text-align: center;
   }
   #tr0_217846 th{
-    color: #000000;
+    color: #fff;
     text-align: center;
     border-top: 1px solid #c9e1f0;
   }
