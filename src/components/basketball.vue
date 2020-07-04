@@ -69,17 +69,20 @@
             <td v-text="item.zscore4"  id="td_as4_217846"></td>
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
             <td v-text="item.zscoreTotle" style="color: #0000FF;" id="td_as6_217846"></td>
-            <td id="td_as10_217846" rowspan="2" @click="aplayAudio">
+            <td id="td_as10_217846" rowspan="2">
+              <!-- <td id="td_as10_217846" rowspan="2" @click="aplayAudio"> -->
               <!-- <img src="../assets/music.png" /> -->
              <el-switch
                v-model="item.listene"
                 active-text=""
                 inactive-text="">
               </el-switch>
-              <!-- <audio controls="controls" hidden src="../assets/12898.mp3" ></audio> -->
-                <audio id="audio" ref="audio" controls="controls" preload="auto" hidden  src="../assets/12898.mp3">
+              <audio id="audio" preload="auto">
+                <source src="../assets/12898.mp3" />
+              </audio>
+                <!-- <audio id="audio" ref="audio" controls="controls" preload="auto" hidden  src="../assets/12898.mp3"> -->
                   <!-- <source type="audio/ogg" /> -->
-                </audio>
+                <!-- </audio> -->
             </td>
 <!--            <td v-text="item.n"  id="td_as7_217846"></td>
             <td v-text="item.zteamId" id="td_as8_217846"></td>
@@ -145,6 +148,7 @@
         audio.play()
       },
       soundEffect(){
+        console.log(this.value5)
         if(!this.value5){
           this.data.forEach((item) => {
             item.listene=false
@@ -239,17 +243,19 @@
         // item.matchTime = this.getdate(item.matchTime)
         data.zrank = `(${data.zrank})`
         data.krank = `(${data.krank})`
-
+          console.log(tableData)
          for(let i in  tableData){
            if(tableData[i].id ===data.id){
-
+             let listene = tableData[i].listene
              tableData[i] = data
              isHave =true
-             console.log(tableData[i].listene)
-             if(tableData[i].listene){
-               console.log("222222222")
+             tableData[i].listene = listene
+             console.log(listene)
+             if(tableData[i]){
+               // console.log("222222222")
                this.aplayAudio()
              }
+             console.log(this.value6)
              if(this.value6){
                        // this.$message({
                        //   dangerouslyUseHTMLString: true,

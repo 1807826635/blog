@@ -59,7 +59,7 @@
             <tr class="tr" v-bind:key="index">
               <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
               <th width="160">{{item.matchTime}}</th>
-              <th width="160">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></th>  
+              <th width="160">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></th>
               <th width="160" style="color: #0000FF;">{{item.score}}</th>
               <th width="160">{{item.kteamName}}<span style="color: #ffcc00;">{{item.krank}}</span></th>
               <th width="160" style="color: #ED225D;">{{item.half}}</th>
@@ -73,7 +73,7 @@
                   </el-button>
                 </template>
               </th>
-              <th width="160"  @click="aplayAudio">
+              <th width="160">
                 <el-switch
                    v-model="item.listene"
                    active-text=""
@@ -220,8 +220,10 @@
         console.log(data)
          for(let i in  tableData){
            if(tableData[i].id ===data.id){
+             let listene = tableData[i].listene
              tableData[i] = data
              isHave =true
+             tableData[i].listene = listene
              if(tableData[i].listene){
                this.aplayAudio()
              }
