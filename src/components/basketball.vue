@@ -25,7 +25,7 @@
       <el-switch
        v-model="value5"
        inactive-color="#efefef"
-       @change="voice"
+       @change="soundEffect"
        active-text="开"
        inactive-text="关">
       </el-switch>
@@ -141,6 +141,17 @@
         console.log('ss')
         const audio = document.getElementById('audio')
         audio.play()
+      },
+      soundEffect(){
+        if(!this.value5){
+          this.data.forEach((item) => {
+            item.listene=false
+          })
+        }else{
+          this.data.forEach((item) => {
+            item.listene=true
+          })
+        }
       },
       get() {
         // var select = this.value2;

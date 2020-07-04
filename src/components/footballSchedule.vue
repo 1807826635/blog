@@ -20,8 +20,9 @@
               :value="item.id">
             </el-option>
           </el-select>
-          <span class="demonstration" style="margin-left: 2%;">音效</span>
+          <span class="demonstration" style="margin-left: 2%;" >音效</span>
            <el-switch
+             @change="soundEffect"
             v-model="value5"
             inactive-color="#efefef"
             active-text="开"
@@ -31,6 +32,7 @@
           <!-- <div style="display: flex;margin-left: 2%;"> -->
            <span class="demonstration" style="margin-left: 2%;">消息提示</span>
             <el-switch
+              @change="messageTips"
              v-model="value6"
              inactive-color="#efefef"
              active-text="开"
@@ -229,6 +231,20 @@
           tableData.push(data)
         }
         that.tableData=tableData
+
+      },
+      soundEffect(){
+        if(!this.value5){
+          this.tableData.forEach((item) => {
+            item.listene=false
+          })
+        }else{
+          this.tableData.forEach((item) => {
+            item.listene=true
+          })
+        }
+      },
+      messageTips(){
 
       },
       initWebSocket(params) {
