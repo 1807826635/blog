@@ -4,13 +4,7 @@
       <div class="match_operate" style="height:auto;">
         <div class="float_l">
           <div class="block">
-            <span class="demonstration">查询</span>
-            <el-date-picker
-              v-model="value1"
-              @change="get"
-              type="date"
-              placeholder="选择日期">
-            </el-date-picker>
+
             <span class="demonstration">赛事类型</span>
             <el-select v-model="value3" @change="get" multiple placeholder="请选择">
               <el-option
@@ -20,6 +14,13 @@
                 :value="item.id">
               </el-option>
             </el-select>
+            <span class="demonstration">赛事选择</span>
+            <el-date-picker
+              v-model="value1"
+              @change="get"
+              type="date"
+              placeholder="选择日期">
+            </el-date-picker>
             <el-switch
             v-model="value2"
             @change="get"
@@ -47,12 +48,14 @@
           <template v-for="(item,index) in tableData" >
           <tr class="tr" v-bind:key="index">
             <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
-            <th width="160">{{item.updateTime}}</th>
-            <th width="160">{{item.zteamName}}</th>
-            <th width="160">{{item.score}}</th>
-            <th width="160">{{item.kteamName}}</th>
-            <th width="160">{{item.half}}</th>
+            <th width="160">{{item.matchTime}}</th>
+            <th width="160">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></th>
+            <th width="160" style="color: #0000FF;">{{item.score}}</th>
+            <th width="160">{{item.kteamName}}<span style="color: #ffcc00;">{{item.krank}}</span></th>
+            <th width="160" style="color: #ED225D;">{{item.half}}</th>
             <th width="160">{{item.note}}</th>
+          </tr>
+          <tr v-bind:key="index+'n'" style="height:10px;">
           </tr>
           </template>
         </table>
@@ -139,9 +142,9 @@ var ws = null
         // params.defaultDate=this.$moment(time).format('YYYY-MM-DD')
         this.axios.get('api/quartz/soccer/findMatchByParams', {params}).then((res)=> {
           res.data.msg.forEach((item)=>{
-            item.score = `${item.zscoreTotle}- ${item.kscoreTotle}`
-            item.zteamName = `${item.zteamName}(${item.zrank})`
-            item.kteamName = `${item.kteamName}(${item.krank})`
+            item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
+            item.zrank = `(${item.zrank})`
+            item.krank = `(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
             item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
             item.matchTime=this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
@@ -206,7 +209,8 @@ var ws = null
     left: 0;
     right: 0;
     top: 100px;
-    padding-top: 100px;
+    /* padding-top: 100px; */
+        margin-top: 5%;
   }
   .switchs{
     display: flex;
@@ -247,7 +251,7 @@ var ws = null
     width: 60%;
     margin: 0 auto;
     padding-top: 12px;
-    margin-top: 34px;
+    /* margin-top: 34px; */
   }
 
   .tab {

@@ -20,7 +20,7 @@
               :value="item.id">
             </el-option>
           </el-select>
-          <span class="demonstration" style="margin-left: 2%;" >音效</span>
+          <span class="demonstration" style="margin-left: 2%;" >总音效</span>
            <el-switch
              @change="soundEffect"
             v-model="value5"
@@ -58,11 +58,11 @@
           <template v-for="(item,index) in tableData">
             <tr class="tr" v-bind:key="index">
               <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
-              <th width="160">{{item.updateTime}}</th>
-              <th width="160">{{item.zteamName}}</th>
-              <th width="160">{{item.score}}</th>
-              <th width="160">{{item.kteamName}}</th>
-              <th width="160">{{item.half}}</th>
+              <th width="160">{{item.matchTime}}</th>
+              <th width="160">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></th>  
+              <th width="160" style="color: #0000FF;">{{item.score}}</th>
+              <th width="160">{{item.kteamName}}<span style="color: #ffcc00;">{{item.krank}}</span></th>
+              <th width="160" style="color: #ED225D;">{{item.half}}</th>
               <th width="160">{{item.note}}</th>
               <!-- <th width="160">{{item.isVideo}}</th> -->
               <th width="160">
@@ -79,11 +79,12 @@
                    active-text=""
                    inactive-text="">
                  </el-switch>
-                   <audio id="audio" preload="auto" autoplay>
-                     <source src="../assets/12898.mp3" type="audio/ogg" />
-                   </audio>
+                    <audio id="audio" controls="controls" hidden  src="../assets/12898.mp3">
+                      <!-- <source type="audio/ogg" /> -->
+                    </audio>
               </th>
             </tr>
+            <tr v-bind:key="index+'n'" style="height: 10px;"></tr>
           </template>
         </table>
       </div>
@@ -128,6 +129,8 @@
       aplayAudio () {
         console.log('ss')
         const audio = document.getElementById('audio')
+        // 从头播放
+        audio.currentTime = 0;
         audio.play()
       },
         getdate() {
@@ -170,8 +173,8 @@
               item.score='-';
             }
             item.listene= true
-            item.zteamName = `${item.zteamName}(${item.zrank})`
-            item.kteamName = `${item.kteamName}(${item.krank})`
+            item.zrank = `(${item.zrank})`
+            item.krank = `(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
             item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
             item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
@@ -209,11 +212,12 @@
         if(data.score='null-null'){
           data.score='-';
         }
-        data.zteamName = `${data.zteamName}(${data.zrank})`
-        data.kteamName = `${data.kteamName}(${data.krank})`
+        data.zrank = `(${data.zrank})`
+        data.krank = `(${data.krank})`
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
         data.updateTime = this.$moment(data.updateTime).format("YYYY-MM-DD kk:mm:ss")
         data.matchTime = this.$moment(data.matchTime).format("YYYY-MM-DD kk:mm:ss")
+        console.log(data)
          for(let i in  tableData){
            if(tableData[i].id ===data.id){
              tableData[i] = data
@@ -221,15 +225,17 @@
              if(tableData[i].listene){
                this.aplayAudio()
              }
+             if(this.value6){
+               this.$message(tableData[i].zteamName+tableData[i].score+tableData[i]
+               .kteamName+'比赛更新~');
+              }
            }
          }
         if(!isHave){
-         if(this.value6){
-           this.$message(data.zteamName+data.score+data.kteamName+'比赛更新~');
-          }
           // console.log(data)
           tableData.push(data)
         }
+
         that.tableData=tableData
 
       },
@@ -291,7 +297,8 @@
     left: 0;
     right: 0;
     top: 100px;
-    padding-top: 100px;
+    margin-top: 5%;
+    /* padding-top: 100px; */
   }
 
   .switchs {
@@ -379,6 +386,7 @@
   }
 
   .tr {
+    border-top: solid 2px #efefef;
     border-bottom: solid 2px #efefef;
   }
 </style>
@@ -432,7 +440,9 @@
 }
 .tr th{
   /* background-color: #545c64; */
-  /* color: #FFFFFF */
-      padding: 0 !important;
+  border-top: #e7e7e7;
+  color: #000000;
+  font-weight:200;
+  padding: 0 !important;
 }
 </style>

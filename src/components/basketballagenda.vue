@@ -49,33 +49,32 @@
           <tr id="tr1_2178461" v-bind:key="index">
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.matchTime" rowspan="2"></td>
-            <td v-text="item.zteamName" id="td_as11_217846">
-              <font>{}</font>
-            </td>
+            <td id="td1_as11_217846">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></td>
             <td v-text="item.zscore1"  id="td_as1_217846"></td>
             <td v-text="item.zscore2"  id="td_as2_217846"></td>
             <td v-text="item.zscore3"  id="td_as3_217846"></td>
             <td v-text="item.zscore4"  id="td_as4_217846"></td>
             <td v-text="item.zscore5"  id="td_as5_217846"></td>
-            <td v-text="item.zscoreTotle"  id="td_as6_217846"></td>
+            <td v-text="item.zscoreTotle" style="color: #0000FF;" id="td_as6_217846"></td>
 <!--            <td v-text="item.n"  id="td_as7_217846"></td>
             <td v-text="item.zteamId" id="td_as8_217846"></td>
             <td id="td_as10_217846"></td> -->
           </tr>
-          <tr id="tr4_217846" v-bind:key="item.id">
+          <tr id="tr4_217846" v-bind:key="index+'n'">
             <!--<td :style="{background:item.color}"></td>-->
             <!--<td></td>-->
-            <td v-text="item.kteamName" id="td1_as11_217846"></td>
+            <td id="td1_as11_217846">{{item.kteamName}}<span style="color: #ffcc00;">{{item.krank}}</span></td>
             <td v-text="item.kscore1" id="td1_as1_217846"></td>
             <td v-text="item.kscore2" id="td1_as2_217846"></td>
             <td v-text="item.kscore3" id="td1_as3_217846"></td>
             <td v-text="item.kscore4" id="td1_as4_217846"></td>
             <td v-text="item.kscore5" id="td1_as5_217846"></td>
-            <td v-text="item.kscoreTotle" id="td1_as6_217846"></td>
+            <td v-text="item.kscoreTotle" style="color: #0000FF;" id="td1_as6_217846"></td>
 <!--            <td v-text="item.n" id="td1_as8_217846"></td>
             <td v-text="item.kteamId" id="td1_as9_217846"></td>
             <td id="td1_as10_217846"></td> -->
           </tr>
+          <tr v-bind:key="index+'s'" style="height: 10px;"></tr>
       </template>
       </thead>
    </table>
@@ -145,8 +144,8 @@
               item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
               // item.matchTime = this.getdate(item.matchTime)
-              item.zteamName = `${item.zteamName}(${item.zrank})`
-              item.kteamName = `${item.kteamName}(${item.krank})`
+              item.zrank = `(${item.zrank})`
+              item.krank = `(${item.krank})`
             })
             this.data=res.data.msg
           })
@@ -209,7 +208,7 @@
   #tr1_2178461 td{
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
-
+        border-top: 1px solid #c9e1f0;
         empty-cells: show;
   }
   #tr4_217846 td{
@@ -238,7 +237,7 @@
   }
 
   .el-table td{
-    padding: 0 !important;
+    padding: 1px !important;
   }
   #tr4_217846 td{
     color: #000000;
