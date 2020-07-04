@@ -318,4 +318,9 @@ var ws = null
     /* background-color: #545c64; */
     color: #FFFFFF;
   }
+  .tr th{
+    /* background-color: #545c64; */
+    /* color: #FFFFFF */
+        padding: 0 !important;
+  }
 </style>

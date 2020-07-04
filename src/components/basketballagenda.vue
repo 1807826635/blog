@@ -202,23 +202,20 @@
        background-color: #545c64;
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
-        height: 40px;
-        line-height: 40px;
+
         empty-cells: show;
         width: 7%;
   }
   #tr1_2178461 td{
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
-        height: 20px;
-        line-height: 40px;
+
         empty-cells: show;
   }
   #tr4_217846 td{
         border-left: 1px solid #c9e1f0;
         border-bottom: 1px solid #c9e1f0;
-        height: 40px;
-        line-height: 40px;
+
         empty-cells: show;
   }
   #td_as10_217846{
@@ -239,9 +236,14 @@
     color: #000000;
     text-align: center;
   }
+
+  .el-table td{
+    padding: 0 !important;
+  }
   #tr4_217846 td{
     color: #000000;
     text-align: center;
+    line-height: 18px;
     padding-bottom: 10px;
   }
   .demonstration {

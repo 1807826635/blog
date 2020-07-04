@@ -373,6 +373,7 @@
   .index .el-table th, .el-table tr {
     background-color: rgba(0, 0, 0, 0);
     text-align: center;
+
   }
 
   .tr:first-child {
@@ -411,5 +412,11 @@
 .thead th{
   /* background-color: #545c64; */
   color: #FFFFFF;
+      /* padding: 0 !important; */
+}
+.tr th{
+  /* background-color: #545c64; */
+  /* color: #FFFFFF */
+      padding: 0 !important;
 }
 </style>
