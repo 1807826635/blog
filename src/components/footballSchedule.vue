@@ -280,7 +280,6 @@
            console.log(e)
           if(e.data != '连接成功'){
             let data = JSON.parse(e.data)
-            console.log(data.type)
             if(data.type=='soccer'){
               console.log(data.type)
               that.updata(data)

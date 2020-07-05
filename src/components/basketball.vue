@@ -142,8 +142,7 @@
       },
     mounted() {
       this.get(),
-      this.cate(),
-      this.initWebSocket()
+      this.cate()
     },
 destroyed() {
   this.ws.close() //离开路由之后断开websocket连接
