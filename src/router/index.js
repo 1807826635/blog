@@ -10,7 +10,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [{ // 足球赛事赛程
-    path: '/',
+    path: '/football/schedule',
     name: 'home',
     component: home,
     meta: {index: 1, title: '足球赛程'}
@@ -21,7 +21,7 @@ export default new Router({
     component: basketball,
     meta: {index: 1, title: '篮球即时比分'}
   }, { // 足球实时赛程
-    path: '/football/schedule',
+    path: '/',
     name: 'footballSchedule',
     component: footballSchedule,
     meta: {index: 1, title: '足球即时比分'}
