@@ -181,7 +181,7 @@
             if(item.score='null-null'){
               item.score='-';
             }
-            item.listene= false
+            item.listene= true
             item.zrank = `(${item.zrank})`
             item.krank = `(${item.krank})`
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
