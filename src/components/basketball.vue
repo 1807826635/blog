@@ -253,7 +253,14 @@
               this.aplayAudio()
             }
             if(this.value6){
-              this.$message(tableData[i].zteamName+'-'+tableData[i].kteamName+'比赛更新~');
+              console.log(tableData[i].zteamName)
+              // this.$message(tableData[i].zteamName+'-'+tableData[i].kteamName+'比赛更新~');
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                message: "<strong><i style='padding: 10px;color:#ED225D'>"+tableData[i].competitionName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableData[i].zTeamName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableData[i].zScoreTotle+"</i><i>-</i><i style='padding: 10px;color:#ffcc00'>"+tableData[i].kScoreTotle+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#ffcc00'>"+tableData[i].kTeamName+"</i></strong>",
+                showClose:true,
+                duration:10000
+              });
             }
           }
         }

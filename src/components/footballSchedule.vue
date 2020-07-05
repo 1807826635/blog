@@ -232,8 +232,12 @@
                that.aplayAudio()
              }
              if(this.value6){
-               this.$message(tableDatas[i].zteamName+tableDatas[i].score+tableDatas[i]
-               .kteamName+'比赛更新~');
+               this.$message({
+                 dangerouslyUseHTMLString: true,
+                 message: "<strong><i style='padding: 10px;color:#ED225D'>"+tableDatas[i].competitionName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableDatas[i].zTeamName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableDatas[i].zScoreTotle+"</i><i>-</i><i style='padding: 10px;color:#ffcc00'>"+tableDatas[i].kScoreTotle+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#ffcc00'>"+tableDatas[i].kTeamName+"</i></strong>",
+                 showClose:true,
+                 duration:10000
+               });
               }
            }
          }
@@ -273,7 +277,9 @@
           // console.log(e)
           if(e.data != '连接成功'){
             let data = JSON.parse(e.data)
+            console.log(data.type)
             if(data.type=='soccer'){
+              console.log(data.type)
               that.updata(data)
             }
           }

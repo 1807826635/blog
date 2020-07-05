@@ -86,9 +86,10 @@ var ws = null
         options: [],
       }
     },
-    created(){
-      this.initWebSocket()
-    },
+    // created(){
+    //   this.initWebSocket()
+    // }
+    // ,
     mounted(){
       this.get(),
       this.cate()
@@ -169,28 +170,28 @@ var ws = null
             console.log(error);
           });
       },
-      initWebSocket (params) {
-        let that = this
-        that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
-        // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
-        that.ws.onopen =  (e) =>{
-          console.log('WebSocket已经打开: ')
-          let actions = {"zScoreTotle":null,"note":null,"half":null,"updateTime":1593179256510,"kYellowcard":null,"type":"soccer","zRedcard":null,"kScore":null,"kRedcard":null,"kScorepoint":null,"zYellowcard":null,"tStartTime":null,"zScore":null,"kScoreTotle":null,"id":1121133,"zScorepoint":null,"status":9};     //请根据实际项目需要进行修改
-          that.ws.send(JSON.stringify(actions));
-          console.log(e)
-        }
-        that.ws.onmessage = function (e) {
-          console.log('WebSocket收到消息: ' + e.data)
-        }
-        that.ws.onclose = function (e) {
-          console.log('WebSocket关闭: ')
-          console.log(e)
-        }
-        that.ws.onerror = function (e) {
-          console.log('WebSocket发生错误: ')
-          console.log(e)
-        }
-      }
+      // initWebSocket (params) {
+      //   let that = this
+      //   that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
+      //   // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
+      //   that.ws.onopen =  (e) =>{
+      //     console.log('WebSocket已经打开: ')
+      //     let actions = {"zScoreTotle":null,"note":null,"half":null,"updateTime":1593179256510,"kYellowcard":null,"type":"soccer","zRedcard":null,"kScore":null,"kRedcard":null,"kScorepoint":null,"zYellowcard":null,"tStartTime":null,"zScore":null,"kScoreTotle":null,"id":1121133,"zScorepoint":null,"status":9};     //请根据实际项目需要进行修改
+      //     that.ws.send(JSON.stringify(actions));
+      //     console.log(e)
+      //   }
+      //   that.ws.onmessage = function (e) {
+      //     console.log('WebSocket收到消息: ' + e.data)
+      //   }
+      //   that.ws.onclose = function (e) {
+      //     console.log('WebSocket关闭: ')
+      //     console.log(e)
+      //   }
+      //   that.ws.onerror = function (e) {
+      //     console.log('WebSocket发生错误: ')
+      //     console.log(e)
+      //   }
+      // }
     }
   }
 
