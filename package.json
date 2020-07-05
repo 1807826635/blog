@@ -1,8 +1,8 @@
 {
   "name": "y",
   "version": "1.0.0",
-  "description": "y",
-  "author": "Your Name <845493506@qq.com>",
+  "description": "球情报-比分直播",
+  "author": "bug大师<@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
