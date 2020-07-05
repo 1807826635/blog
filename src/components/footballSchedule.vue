@@ -123,6 +123,10 @@
     created() {
       this.initWebSocket()
     },
+    destroyed() {
+      console.log('销毁')
+     this.ws.close() //离开路由之后断开websocket连接
+    },
     methods: {
       dateChange() {
       },
@@ -272,9 +276,9 @@
           console.log('WebSocket收到消息: ' + e.data)
           // console.log(e)
           if(e.data != '连接成功'){
-            let data = JSON.parse(e.data)
-            if(data.type=='soccer'){
-              that.updata(data)
+            let datase = JSON.parse(e.data)
+            if(datase.type=='soccer'){
+              that.updata(datase)
             }
           }
         }

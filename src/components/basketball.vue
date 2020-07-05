@@ -135,7 +135,6 @@
       data: {
         immediate: true,
         handler (newV, oldV) {
-           console.log(newV)
           return newV
         },
           deep: true
@@ -146,6 +145,9 @@
       this.cate(),
       this.initWebSocket()
     },
+destroyed() {
+  this.ws.close() //离开路由之后断开websocket连接
+},
     created() {
       this.initWebSocket()
     },
@@ -244,7 +246,6 @@
         upbase.krank = `(${upbase.krank})`
         for(let i in  tableData){
           if(tableData[i].id === upbase.id){
-            console.log(tableData[i])
             let listene = tableData[i].listene
             tableData[i] = upbase
             isHave =true
@@ -274,19 +275,17 @@
         that.ws.onopen = (e) => {
         }
         that.ws.onmessage = function (e) {
+          console.log(e)
           if(e.data != '连接成功'){
-            let data = JSON.parse(e.data)
-            if(data.type=='basketball'){
-              that.updata(data)
+            let datase = JSON.parse(e.data)
+            if(datase.type=='basketball'){
+              that.updata(datase)
             }
           }
         }
         that.ws.onclose = function (e) {
-          console.log('WebSocket关闭: ')
-          console.log(e)
         }
         that.ws.onerror = function (e) {
-          console.log('WebSocket发生错误: ')
           this.initWebSocket()
         }
       },
