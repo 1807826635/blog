@@ -236,8 +236,12 @@
                that.aplayAudio()
              }
              if(this.value6){
-               this.$message(tableDatas[i].zteamName+tableDatas[i].score+tableDatas[i]
-               .kteamName+'比赛更新~');
+               this.$message({
+                 dangerouslyUseHTMLString: true,
+                 message: "<strong><i style='padding: 10px;color:#ED225D'>"+tableDatas[i].competitionName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableDatas[i].zTeamName+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#0000FF'>"+tableDatas[i].zScoreTotle+"</i><i>-</i><i style='padding: 10px;color:#ffcc00'>"+tableDatas[i].kScoreTotle+"</i><i style='padding: 10px'>|</i><i style='padding: 10px;color:#ffcc00'>"+tableDatas[i].kTeamName+"</i></strong>",
+                 showClose:true,
+                 duration:10000
+               });
               }
            }
          }
@@ -270,15 +274,16 @@
         that.ws = new WebSocket("ws://47.56.185.111:8080/quartz/websocket");
         // var ws = new WebSocket("ws://localhost:8096/websocket/111405");
         that.ws.onopen = (e) => {
-          console.log(e)
+        //  console.log(e)
         }
         that.ws.onmessage = function (e) {
-          console.log('WebSocket收到消息: ' + e.data)
-          // console.log(e)
+           console.log(e)
           if(e.data != '连接成功'){
-            let datase = JSON.parse(e.data)
-            if(datase.type=='soccer'){
-              that.updata(datase)
+            let data = JSON.parse(e.data)
+            console.log(data.type)
+            if(data.type=='soccer'){
+              console.log(data.type)
+              that.updata(data)
             }
           }
         }
