@@ -108,7 +108,7 @@
         value2: false,
         value3: '',
         value4: 'true',
-        value5: false,
+        value5: true,
         value6: true,
         tableData: [],
         options: [],
@@ -171,8 +171,8 @@
         }
         let params = {
           competitionId: select,
-          defaultDate: '2020-06-20',
-          // defaultDate:defaultDate,
+          // defaultDate: '2020-06-20',
+          defaultDate:defaultDate,
           complate: f,
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {

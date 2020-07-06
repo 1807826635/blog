@@ -123,7 +123,7 @@
         value2: [],
         value3:false,
         value1: '',
-        value5:false,
+        value5:true,
         value6:true,
         data:[],
         tableData: [],
@@ -195,8 +195,8 @@ destroyed() {
         }
         let  params={
                       competitionId:select,
-                      // defaultDate:defaultDate,
-                      defaultDate:'2020-06-15',
+                      defaultDate:defaultDate,
+                      // defaultDate:'2020-06-15',
                       complate:f,
                       queryDate:d  //查该日期的比赛 可空
                     }
