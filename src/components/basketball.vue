@@ -248,7 +248,25 @@ destroyed() {
             let listene = tableData[i].listene
             tableData[i] = upbase
             isHave =true
-            tableData[i].listene = listene
+              tableData[i].listene = listene
+            	tableData[i].kscoreTotle=tableData[i].kScoreTotle
+            	tableData[i].zrank=tableData[i].zRank
+            	tableData[i].zscoreTotle=tableData[i].zScoreTotle
+            	tableData[i].zteamName=tableData[i].zTeamName
+            	tableData[i].kscore3=tableData[i].kScore3
+            	tableData[i].kscore4=tableData[i].kScore4
+            	tableData[i].kscore5=tableData[i].kScore5
+            	tableData[i].kteamId=tableData[i].kTeamId
+            	tableData[i].kscore1=tableData[i].kScore1
+            	tableData[i].kteamName=tableData[i].kTeamName
+            	tableData[i].kscore2=tableData[i].kScore2
+            	tableData[i].zscore1=tableData[i].zScore1
+            	tableData[i].zscore3=tableData[i].zScore3
+            	tableData[i].zscore2=tableData[i].zScore2
+            	tableData[i].zscore5=tableData[i].zScore5
+            	tableData[i].krank=tableData[i].kRank
+            	tableData[i].zscore4=tableData[i].zScore4
+            	tableData[i].zteamId=tableData[i].zTeamId
             if(listene){
               this.aplayAudio()
             }
@@ -279,7 +297,7 @@ destroyed() {
         that.ws.onopen = (e) => {
         }
         that.ws.onmessage = function (e) {
-          console.log(e)
+          console.log(e.data)
           if(e.data != '连接成功'){
             let datase = JSON.parse(e.data)
             if(datase.type=='basketball'){

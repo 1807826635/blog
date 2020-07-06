@@ -231,7 +231,29 @@
              console.log(listene)
              tableDatas[i] = upbase
              isHave =true
-             tableDatas[i].listene = listene
+             // tableDatas[i].listene = tableDatas[i].listene
+             // tableDatas[i].listene = tableDatas[i].listene
+             // tableDatas[i].listene = listene
+     
+             	zredcard=zRedcard
+             	kredcard=kRedcard
+             	zyellowcard=zYellowcard
+             	zscore=zScore
+             	=kScoreTotle
+             	zrank=zRank
+             	=zScoreTotle
+             	zteamName=zTeamName
+             	=kYellowcard
+             	=kTeamId
+             	kteamName=kTeamName
+             	kscore=kScore
+             	=kScorepoint
+             	tstartTime=tStartTime
+             	=competitonId
+             	=zScorepoint
+             	=kRank
+             	=zTeamId
+
              if(listene){
                that.aplayAudio()
              }
@@ -277,7 +299,7 @@
         //  console.log(e)
         }
         that.ws.onmessage = function (e) {
-           console.log(e)
+           console.log(e.data)
           if(e.data != '连接成功'){
             let data = JSON.parse(e.data)
             if(data.type=='soccer'){
