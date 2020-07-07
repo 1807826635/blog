@@ -144,8 +144,19 @@ var ws = null
         this.axios.get('api/quartz/soccer/findMatchByParams', {params}).then((res)=> {
           res.data.msg.forEach((item)=>{
             item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
-            if(item.score='null-null'){
+            if(item.score=='null-null'){
               item.score='-';
+            }
+            if(item.zrank==null){
+              item.zrank='';
+            }else{
+              item.zrank = `(${item.zrank})`
+            }
+            // console.log(item.krank)
+            if(item.krank==null){
+              item.krank='';
+            }else{
+              item.krank = `(${item.krank})`
             }
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
             item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")

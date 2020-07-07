@@ -195,7 +195,7 @@ destroyed() {
         }
         let  params={
                       competitionId:select,
-                      defaultDate:defaultDate,
+                      defaultDate:Dates,
                       // defaultDate:'2020-06-15',
                       complate:f,
                       queryDate:d  //查该日期的比赛 可空
@@ -205,8 +205,17 @@ destroyed() {
             res.data.msg.forEach((item)=>{
               item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
-              item.zrank = `(${item.zrank})`
-              item.krank = `(${item.krank})`
+              if(item.zrank==null){
+                item.zrank='';
+              }else{
+                item.zrank = `(${item.zrank})`
+              }
+              if(item.krank==null){
+                item.krank='';
+              }else{
+                item.krank = `(${item.krank})`
+              }
+
               item.listene= true
             })
             this.data=res.data.msg
@@ -241,8 +250,17 @@ destroyed() {
         let tableData = this.deepClone(that.data)
         upbase.updateTime = this.$moment(upbase.updateTime).format("YYYY-MM-DD kk:mm:ss")
         upbase.matchTime = this.$moment(upbase.matchTime).format("YYYY-MM-DD kk:mm:ss")
-        upbase.zrank = `(${upbase.zrank})`
-        upbase.krank = `(${upbase.krank})`
+        if(upbase.zrank==null){
+          upbase.zrank='';
+        }else{
+          upbase.zrank = `(${upbase.zrank})`
+        }
+        if(upbase.krank==null){
+          upbase.krank='';
+        }else{
+          upbase.krank = `(${upbase.krank})`
+        }
+
         for(let i in  tableData){
           if(tableData[i].id === upbase.id){
             let listene = tableData[i].listene
@@ -267,6 +285,7 @@ destroyed() {
             	tableData[i].krank=tableData[i].kRank
             	tableData[i].zscore4=tableData[i].zScore4
             	tableData[i].zteamId=tableData[i].zTeamId
+              console.log(tableData[i])
             if(listene){
               this.aplayAudio()
             }

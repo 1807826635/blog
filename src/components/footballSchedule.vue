@@ -172,18 +172,27 @@
         let params = {
           competitionId: select,
           // defaultDate: '2020-06-20',
-          defaultDate:defaultDate,
+          defaultDate:Dates,
           complate: f,
         }
         this.axios.get('api/quartz/soccer/findCurrentMatchByParams', {params}).then((res) => {
           res.data.msg.forEach((item) => {
             item.score = `${item.zscoreTotle}-${item.kscoreTotle}`
-            if(item.score='null-null'){
+            if(item.score=='null-null'){
               item.score='-';
             }
             item.listene= true
-            item.zrank = `(${item.zrank})`
-            item.krank = `(${item.krank})`
+            if(item.zrank==null){
+              item.zrank='';
+            }else{
+              item.zrank = `(${item.zrank})`
+            }
+            if(item.krank==null){
+              item.krank='';
+            }else{
+              item.krank = `(${item.krank})`
+            }
+
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
             item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
             item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
@@ -205,7 +214,7 @@
           });
       },
             open(id) {
-              this.$alert("<iframe id='iframeId' src='https://wlive-mc.sportsdt.com/wlive/t_sandbox/index.shtml?id="+id+"' frameborder='0' class='pc iframe'  scrolling='auto'></iframe>", '足球直播', {
+              this.$alert("<iframe id='iframeId' src='http://wlive-mc.sportsdt.com/wlive/hezejingyue/index.shtml?id="+id+"' frameborder='0' class='pc iframe'  scrolling='auto'></iframe>", '足球直播', {
                 dangerouslyUseHTMLString: true
               });
             // }
@@ -220,8 +229,17 @@
         if(upbase.score='null-null'){
           upbase.score='-';
         }
-        upbase.zrank = `(${upbase.zrank})`
-        upbase.krank = `(${upbase.krank})`
+        if(upbase.zrank==null){
+          upbase.zrank='';
+        }else{
+          upbase.zrank = `(${upbase.zrank})`
+        }
+        if(upbase.krank==null){
+          upbase.krank='';
+        }else{
+          upbase.krank = `(${upbase.krank})`
+        }
+
         // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
         upbase.updateTime = this.$moment(upbase.updateTime).format("YYYY-MM-DD kk:mm:ss")
         upbase.matchTime = this.$moment(upbase.matchTime).format("YYYY-MM-DD kk:mm:ss")
@@ -231,29 +249,23 @@
              console.log(listene)
              tableDatas[i] = upbase
              isHave =true
-             // tableDatas[i].listene = tableDatas[i].listene
-             // tableDatas[i].listene = tableDatas[i].listene
-             // tableDatas[i].listene = listene
-     
-             	zredcard=zRedcard
-             	kredcard=kRedcard
-             	zyellowcard=zYellowcard
-             	zscore=zScore
-             	=kScoreTotle
-             	zrank=zRank
-             	=zScoreTotle
-             	zteamName=zTeamName
-             	=kYellowcard
-             	=kTeamId
-             	kteamName=kTeamName
-             	kscore=kScore
-             	=kScorepoint
-             	tstartTime=tStartTime
-             	=competitonId
-             	=zScorepoint
-             	=kRank
-             	=zTeamId
-
+             	tableDatas[i].zredcard=tableDatas[i].zRedcard
+             	tableDatas[i].kredcard=tableDatas[i].kRedcard
+             	tableDatas[i].zyellowcard=tableDatas[i].zYellowcard
+             	tableDatas[i].zscore=tableDatas[i].zScore
+             	tableDatas[i].kscoreTotle=tableDatas[i].kScoreTotle
+             	tableDatas[i].zrank=tableDatas[i].zRank
+             	tableDatas[i].zscoreTotle=tableDatas[i].zScoreTotle
+             	tableDatas[i].zteamName=tableDatas[i].zTeamName
+             	tableDatas[i].kyellowcard=tableDatas[i].kYellowcard
+             	tableDatas[i].kteamId=tableDatas[i].kTeamId
+             	tableDatas[i].kteamName=tableDatas[i].kTeamName
+             	tableDatas[i].kscore=tableDatas[i].kScore
+             	tableDatas[i].kscorepoint=tableDatas[i].kScorepoint
+             	tableDatas[i].tstartTime=tableDatas[i].tStartTime
+             	tableDatas[i].zscorepoint=tableDatas[i].zScorepoint
+             	tableDatas[i].krank=tableDatas[i].kRank
+             	tableDatas[i].zteamId=tableDatas[i].zTeamId
              if(listene){
                that.aplayAudio()
              }
@@ -461,7 +473,7 @@
   }
 #iframeId{
   width: 100%;
-  height: 900px;
+  height: 800px;
 }
 .el-message-box{
   width: 50%;

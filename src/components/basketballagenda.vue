@@ -144,8 +144,16 @@
               item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
               item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
               // item.matchTime = this.getdate(item.matchTime)
-              item.zrank = `(${item.zrank})`
-              item.krank = `(${item.krank})`
+              if(item.zrank==null){
+                item.zrank='';
+              }else{
+                item.zrank = `(${item.zrank})`
+              }
+              if(item.krank==null){
+                item.krank='';
+              }else{
+                item.krank = `(${item.krank})`
+              }
             })
             this.data=res.data.msg
           })
