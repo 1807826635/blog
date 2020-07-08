@@ -43,6 +43,7 @@
     <table class="el-table">
       <thead>
         <tr id="tr0_217846">
+          <th width="9%">置顶</th>
           <th width="9%">赛事</th>
           <th width="9%"><span id="th_s_217846">时间</span><span style="color:#ff0000;margin-left:10px;" id="th_t_217846"></span></th>
           <th width="9%">队名</th>
@@ -60,6 +61,9 @@
         </tr>
         <template v-for="(item,index) in data">
           <tr id="tr1_2178461" v-bind:key="index">
+            <td style="border-bottom: 1px solid #c9e1f0;" rowspan="2">
+              <el-checkbox name="type" @change="top(item,index)"></el-checkbox>
+            </td>
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.competitionName" rowspan="2"  :style="{background:item.color}"></td>
             <td style="border-bottom: 1px solid #c9e1f0;" v-text="item.matchTime" rowspan="2"></td>
             <td id="td1_as11_217846">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></td>
@@ -151,6 +155,10 @@ destroyed() {
       this.initWebSocket()
     },
     methods: {
+      top(item,index){
+        this.data.splice(index,1);
+        this.data.unshift(item);
+      },
       aplayAudio () {
         const audio = document.getElementById('audio')
         // 从头播放

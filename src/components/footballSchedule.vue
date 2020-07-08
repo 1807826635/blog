@@ -45,6 +45,7 @@
       <div class="tab">
         <table class="el-table">
           <thead class="thead">
+          <th width="160">置顶</th>
           <th width="160">赛事</th>
           <th width="160">时间</th>
           <th width="160">主场名称</th>
@@ -57,6 +58,9 @@
           </thead>
           <template v-for="(item,index) in tableData">
             <tr class="tr" v-bind:key="index">
+              <th width="160">
+                <el-checkbox name="type" @change="top(item,index)"></el-checkbox>
+              </th>
               <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
               <th width="160">{{item.matchTime}}</th>
               <th width="160">{{item.zteamName}}<span style="color: #ffcc00;">{{item.zrank}}</span></th>
@@ -128,6 +132,10 @@
      this.ws.close() //离开路由之后断开websocket连接
     },
     methods: {
+      top(item,index){
+        this.tableData.splice(index,1);
+        this.tableData.unshift(item);
+      },
       dateChange() {
       },
       deepClone  (src) {
