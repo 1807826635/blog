@@ -59,7 +59,7 @@
           <template v-for="(item,index) in tableData">
             <tr class="tr" v-bind:key="index">
               <th width="160">
-                <el-checkbox name="type" @change="top(item,index)"></el-checkbox>
+                <el-checkbox name="type" v-model="item.topping"  @change="top(item,index)"></el-checkbox>
               </th>
               <th width="160" :style="{background:item.color}">{{item.competitionName}}</th>
               <th width="160">{{item.matchTime}}</th>
@@ -131,10 +131,27 @@
       console.log('销毁')
      this.ws.close() //离开路由之后断开websocket连接
     },
+    watch: {
+      tableData: {
+        immediate: true,
+        handler (newV, oldV) {
+          return newV
+        },
+        deep: true
+      }
+    },
     methods: {
       top(item,index){
-        this.tableData.splice(index,1);
-        this.tableData.unshift(item);
+        let d = this.deepClone(this.tableData)
+        console.log(d[index],typeof d)
+        let settingArr = Object.keys(d).map(key => {
+          return d[key];  //把每个对象返回出去生成一个新的数组中相当于0:{id:1}
+        });
+        settingArr[index].topping = !settingArr[index].topping
+        settingArr.splice(index,1);
+        settingArr.unshift(item);
+        this.tableData =this.deepClone(settingArr)
+        this.$forceUpdate();
       },
       reverseArr() {
         // 置低
@@ -204,12 +221,12 @@
             }else{
               item.krank = `(${item.krank})`
             }
-
+            item.topping= false
             // item.victory = item.zscoreTotle- item.kscoreTotle > 0 ? '胜':'败'
             item.updateTime = this.$moment(item.updateTime).format("YYYY-MM-DD kk:mm:ss")
             item.matchTime = this.$moment(item.matchTime).format("YYYY-MM-DD kk:mm:ss")
           })
-          this.tableData = res.data.msg
+          this.tableData =this.deepClone(res.data.msg)
         })
           .catch(function (error) {
             console.log(error);
