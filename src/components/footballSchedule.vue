@@ -133,8 +133,13 @@
     },
     methods: {
       top(item,index){
+        置顶
         this.tableData.splice(index,1);
         this.tableData.unshift(item);
+      },
+      reverseArr() {
+        // 置低
+        this.tableData.reverse()
       },
       dateChange() {
       },
